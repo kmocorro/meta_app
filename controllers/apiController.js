@@ -1193,11 +1193,7 @@ module.exports = function(app){
                                     ost_feed2,
                                     ost_feed3,
                                     ost_feed4,
-<<<<<<< HEAD
-                                    ost_feed5,
-=======
                                     ost_feed5
->>>>>>> 4114225995af0359b9e18942c918c5c0c87da5a4
                                 );
 
                                 function efficiency_AVE(){
@@ -1398,8 +1394,6 @@ module.exports = function(app){
 
     });
 
-<<<<<<< HEAD
-=======
     app.get('/ost-lot-trace', function(req, res){
         
         let authenticity_token = jwt.sign({
@@ -1533,7 +1527,6 @@ module.exports = function(app){
 
     });
 
->>>>>>> 4114225995af0359b9e18942c918c5c0c87da5a4
     app.get('/ost-toolmark', function(req, res){
         res.render('ost-toolmark');
     });
