@@ -1,0 +1,9 @@
+config.js
+privkey
+public/
+<<<<<<< HEAD
+node_modules/
+=======
+node_modules/
+.git/
+>>>>>>> 4114225995af0359b9e18942c918c5c0c87da5a4
