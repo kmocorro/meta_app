@@ -1285,7 +1285,7 @@ module.exports = function(app){
                                         }
         
                                         let cosmetics_avg = sum/divisor; // 
-                                        console.log(cosmetics_avg);
+                                      //  console.log(cosmetics_avg);
                                         
                                         resolve(cosmetics_avg.toFixed(0));
 
