@@ -448,27 +448,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <% } else if(typeof main_dashboard[i].feed[j].msg4 !== "undefined") { %>
-                                                    <% if(main_dashboard[i].feed[j].type !== 'Status') { %>
-                                                        <% if(main_dashboard[i].feed[j].msg4[0] == '#') { %>
-                                                            <div class="row">
-                                                                <div class="col-md-12" style="background-color:<%= main_dashboard[i].feed[j].msg4 %>">
-                                                                    <div class="direct-chat-msg">
-                                                                        <div class="direct-chat-info clearfix">
-                                                                            <span class="direct-chat-name pull-left">
-                                                                                <span class="ion ion-ios-box feed-activity-alert"></span>
-                                                                                <%= main_dashboard[i].feed[j].type %>
-                                                                            </span>
-                                                                            <span class="direct-chat-timestamp pull-right"></span>
-                                                                        </div>
-                                                                        <div class="direct-chat-text mrl-text">
-                                                                                <%= main_dashboard[i].feed[j].msg1 %> / <%= main_dashboard[i].feed[j].msg2 %>  = <%= main_dashboard[i].feed[j].msg3 %>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <% } %>
-                                                    <% } %>
                                                 <% } %>
                                             <% } %>
                                         <% } %>
