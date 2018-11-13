@@ -482,11 +482,13 @@
                                             <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
                                                 <% if(main_dashboard[i].feed[j].type == 'Status') { %>
                                                     <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
-                                                    <div class="col-md-12">
-                                                        <div class="stats"  style="background-color: <%= main_dashboard[i].feed[j].msg4 %>; padding: 2px; text-align: center">
-                                                            <small style=>downtime</small>
+                                                        <% if(main_dashboard[i].feed[j].msg4 !== '') { %>
+                                                        <div class="col-md-12">
+                                                            <div class="stats"  style="background-color: <%= main_dashboard[i].feed[j].msg4 %>; padding: 2px; text-align: center">
+                                                                <small style=>downtime</small>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <% } %>
                                                     <% } %>
                                                 <% } %>
                                             <% } %>
