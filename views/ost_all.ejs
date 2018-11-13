@@ -329,7 +329,7 @@
                     <div class="info-box dashboard-feed">
                         <span class="info-box-icon bg-blue dashboard-feed-logo"><i class="ion ion-ios-sunny-outline"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Efficiency</span>
+                            <span class="info-box-text">Lot Efficiency</span>
                             <span class="info-box-number">
                                 <%= efficiency %>%
                             </span>
@@ -351,7 +351,7 @@
                     <div class="info-box dashboard-feed">
                         <span class="info-box-icon bg-black dashboard-feed-logo"><i class="ion ion-ios-eye-outline"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Cosmetics - %Black</span>
+                            <span class="info-box-text">%Black</span>
                             <span class="info-box-number">
                                 <%= cosmetics %>%
                             </span>
@@ -449,23 +449,25 @@
                                                         </div>
                                                     </div>
                                                 <% } else if(typeof main_dashboard[i].feed[j].msg4 !== "undefined") { %>
-                                                    <% if(main_dashboard[i].feed[j].msg4[0] == '#') { %>
-                                                    <div class="row">
-                                                        <div class="col-md-12" style="background-color:<%= main_dashboard[i].feed[j].msg4 %>">
-                                                            <div class="direct-chat-msg">
-                                                                <div class="direct-chat-info clearfix">
-                                                                    <span class="direct-chat-name pull-left">
-                                                                        <span class="ion ion-ios-box feed-activity-alert"></span>
-                                                                        <%= main_dashboard[i].feed[j].type %>
-                                                                    </span>
-                                                                    <span class="direct-chat-timestamp pull-right"></span>
-                                                                </div>
-                                                                <div class="direct-chat-text mrl-text">
-                                                                        <%= main_dashboard[i].feed[j].msg1 %> / <%= main_dashboard[i].feed[j].msg2 %>  = <%= main_dashboard[i].feed[j].msg3 %>
+                                                    <% if(main_dashboard[i].feed[j].type !== 'Status') { %>
+                                                        <% if(main_dashboard[i].feed[j].msg4[0] == '#') { %>
+                                                            <div class="row">
+                                                                <div class="col-md-12" style="background-color:<%= main_dashboard[i].feed[j].msg4 %>">
+                                                                    <div class="direct-chat-msg">
+                                                                        <div class="direct-chat-info clearfix">
+                                                                            <span class="direct-chat-name pull-left">
+                                                                                <span class="ion ion-ios-box feed-activity-alert"></span>
+                                                                                <%= main_dashboard[i].feed[j].type %>
+                                                                            </span>
+                                                                            <span class="direct-chat-timestamp pull-right"></span>
+                                                                        </div>
+                                                                        <div class="direct-chat-text mrl-text">
+                                                                                <%= main_dashboard[i].feed[j].msg1 %> / <%= main_dashboard[i].feed[j].msg2 %>  = <%= main_dashboard[i].feed[j].msg3 %>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                        <% } %>
                                                     <% } %>
                                                 <% } %>
                                             <% } %>
@@ -474,6 +476,23 @@
                                 <% } %>
                             </div>
                             <div class="box-footer">
+                                <div class="row">
+                                    <% for(let i=0;i<main_dashboard.length;i++) { %>
+                                        <% if(main_dashboard[i].feed) { %>
+                                            <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                                                <% if(main_dashboard[i].feed[j].type == 'Status') { %>
+                                                    <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
+                                                    <div class="col-md-12">
+                                                        <div class="stats"  style="background-color: <%= main_dashboard[i].feed[j].msg4 %>; padding: 2px; text-align: center">
+                                                            <small style=>downtime</small>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-8">
                                     <% for(let i=0;i<main_dashboard.length;i++) { %>
@@ -507,11 +526,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div>
-                                            <small>Last 3 hrs:</small>
-                                        </div>
-                                    </div>
+                                    <% for(let i=0;i<main_dashboard.length;i++) { %>
+                                        <% if(main_dashboard[i].feed) { %>
+                                            <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                                                <% if(main_dashboard[i].feed[j].type == 'Last') { %>
+                                                    <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
+                                                        <div class="col-md-12">
+                                                            <div>
+                                                                <small>Last <%= main_dashboard[i].feed[j].msg3 %> hrs:</small>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>  
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
