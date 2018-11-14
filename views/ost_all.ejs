@@ -484,7 +484,7 @@
                                                 <% if(main_dashboard[i].feed[j].type == 'LOTID') { %>
                                                     <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
                                                     <div style="font-size: 14px;">
-                                                        <small><%= main_dashboard[i].feed[j].msg1 %></small>
+                                                        <small><a href="/ost-lot-trace?authenticity_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4NzU4NzVlLWZmNjctNDQ1MC05Nzg1LWEwODIwODQwNTI0NyIsImNsYWltIjp7InNpZ251cCI6InZhbGlkIn0sImlhdCI6MTU0MjE3ODAyMH0.qMCo76dzDA5BnHvCM0zt77zZyCVC5l8ueBtsWpKczTc&toTrace=<%= main_dashboard[i].feed[j].msg1 %>" target="_blank"><%= main_dashboard[i].feed[j].msg1 %></a></small>
                                                     </div>
                                                     <% } %>
                                                 <% } %>

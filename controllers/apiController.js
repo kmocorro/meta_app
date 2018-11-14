@@ -1404,7 +1404,7 @@ module.exports = function(app){
 
         let credentials = {
             authenticity_token: req.query.authenticity_token,
-            toTrace: req.query.toTrace
+            toTrace: req.query.toTrace || ''
         }
 
         //  verify token
@@ -1486,6 +1486,8 @@ module.exports = function(app){
                     };
 
                     let searchVal = credentials.toTrace;
+
+                    //console.log(searchVal);
 
                     res.render('ost-lot-trace', {authenticity_token, resultFromTrace, searchVal, feedback});
 

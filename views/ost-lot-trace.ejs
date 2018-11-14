@@ -333,7 +333,7 @@
                 <form id="lotTrace">
                     <div class="input-group">
                         <input type="hidden" name="authenticity_token" value="<%= authenticity_token %>">
-                        <% if(searchVal) { %>
+                        <% if(typeof searchVal !== 'undefined') { %>
                             <input type="text" name="toTrace" required placeholder="Search OST Lot ID or MES Run card..." class="form-control" value="<%= searchVal %>">
                         <% } else { %>
                             <input type="text" name="toTrace" required placeholder="Search OST Lot ID or MES Run card..." class="form-control">
@@ -348,7 +348,7 @@
             <br>
             <br>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <% if(feedback.positive !== ''){ %>
                     <div class="responseDivSuccess">
                         <!--response here-->
@@ -363,55 +363,96 @@
                     <% if(resultFromTrace.length > 0) { %>
                     <div class="box box-default">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover" style="font-size: 11px;">
-                                <tbody><tr>
-                                <th>OST </th>
-                                <th>MES</th>
-                                <th>ETCHBK</th>
-                                <th>PLATING</th>
-                                <th>EDGCTR</th>
-                                <th>PLM</th>
-                                <th>FGA</th>
-                                <th>SEED</th>
-                                <th>LCM</th>
-                                <th>PBA</th>
-                                <th>OLT</th>
-                                <th>PDRIVE</th>
-                                <th>CLEANTEX</th>
-                                <th>TOXE</th>
-                                <th>PTM</th>
-                                <th>NDEP</th>
-                                <th>NOXE</th>
-                                <th>NTM</th>
-                                <th>BSG</th>
-                                <th>POLY</th>
-                                <th>DE</th>
-                                <th>DE_STAGE</th>
+                            <table class="table table-hover" style="font-size: 14px;">
+                                <tbody>
+                                <tr>
+                                <th>MES Runcard</th><th><%= resultFromTrace[0].lot_name %></th>
                                 </tr>
                                 <tr>
-                                <td><%= resultFromTrace[0].lot_id %></td>
-                                <td><%= resultFromTrace[0].lot_name %></td>
+                                <th>Process</th>
+                                <th>Equipment Name</th>
+                                </tr>
+                                <tr>
+                                <td>ETCHBK</td>
                                 <td><%= resultFromTrace[0].etchbk %></td>
+                                </tr>
+                                <tr>
+                                <td>PLATING</td>
                                 <td><%= resultFromTrace[0].plating %></td>
+                                </tr>
+                                <tr>
+                                <td>EDGE COAT</td>
                                 <td><%= resultFromTrace[0].edg_ctr %></td>
-                                <td><%= resultFromTrace[0].ptm %></td>
+                                </tr>
+                                <tr>
+                                <td>PLM</td>
+                                <td><%= resultFromTrace[0].plm %></td>
+                                </tr>
+                                <tr>
+                                <td>FGA</td>
                                 <td><%= resultFromTrace[0].fga %></td>
+                                </tr>
+                                <tr>
+                                <td>SEED</td>
                                 <td><%= resultFromTrace[0].seed %></td>
+                                </tr>
+                                <tr>
+                                <td>LCM</td>
                                 <td><%= resultFromTrace[0].lcm %></td>
+                                </tr>
+                                <tr>
+                                <td>PBA</td>
                                 <td><%= resultFromTrace[0].pba %></td>
+                                </tr>
+                                <tr>
+                                <td>OLT</td>
                                 <td><%= resultFromTrace[0].arc_barc %></td>
+                                </tr>
+                                <tr>
+                                <td>PDRIVE</td>
                                 <td><%= resultFromTrace[0].pdrive %></td>
+                                </tr>
+                                <tr>
+                                <td>CLEANTEX</td>
                                 <td><%= resultFromTrace[0].cleantex %></td>
+                                </tr>
+                                <tr>
+                                <td>TOXE</td>
                                 <td><%= resultFromTrace[0].toxe %></td>
+                                </tr>
+                                <tr>
+                                <td>PTM</td>
                                 <td><%= resultFromTrace[0].ptm %></td>
+                                </tr>
+                                <tr>
+                                <td>NDEP</td>
                                 <td><%= resultFromTrace[0].ndep %></td>
+                                </tr>
+                                <tr>
+                                <td>NOXE</td>
                                 <td><%= resultFromTrace[0].noxe %></td>
+                                </tr>
+                                <tr>
+                                <td>NTM</td>
                                 <td><%= resultFromTrace[0].ntm %></td>
+                                </tr>
+                                <tr>
+                                <td>BSGDEP</td>
                                 <td><%= resultFromTrace[0].bsgdep %></td>
+                                </tr>
+                                <tr>
+                                <td>POLY</td>
                                 <td><%= resultFromTrace[0].poly %></td>
+                                </tr>
+                                <tr>
+                                <td>DAMAGE</td>
                                 <td><%= resultFromTrace[0].damage %></td>
+                                </tr>
+                                <tr>
+                                <td>DAMAGE STAGE</td>
                                 <td><%= resultFromTrace[0].damage_stage %></td>
                                 </tr>
+                                <tr>
                                 </tbody>
                             </table>
                         </div>
