@@ -20,3 +20,4 @@ socketController(io);
 
 //app.listen(port);
 server.listen(port);
+console.log("Server starting up... PORT: " + port);

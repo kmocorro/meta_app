@@ -426,6 +426,61 @@
                                     <% } %>
                                     </div>
                                 </div>
+                                <!--2019 new row BRR RS Jo-->
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                    <% for(let i=0;i<main_dashboard.length;i++){ %>
+                                        <% if(main_dashboard[i].feed) { %>
+                                            <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                                                <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
+                                                    <% if(main_dashboard[i].feed[j].type == 'BRR_Ave') { %>
+                                                        <% if(main_dashboard[i].feed[j].msg4 == 'HEADER') { %>
+                                                            <div class="text-center">
+                                                                <b><%= main_dashboard[i].feed[j].type %></b> <%= main_dashboard[i].feed[j].msg2 %>%
+                                                            </div>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <% for(let i=0;i<main_dashboard.length;i++){ %>
+                                        <% if(main_dashboard[i].feed) { %>
+                                            <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                                                <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
+                                                    <% if(main_dashboard[i].feed[j].type == 'Rs_Ave') { %>
+                                                        <% if(main_dashboard[i].feed[j].msg4 == 'HEADER') { %>
+                                                            <div class="text-center">
+                                                                <b><%= main_dashboard[i].feed[j].type %></b> <%= main_dashboard[i].feed[j].msg1 %>%
+                                                            </div>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <% for(let i=0;i<main_dashboard.length;i++){ %>
+                                        <% if(main_dashboard[i].feed) { %>
+                                            <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                                                <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
+                                                    <% if(main_dashboard[i].feed[j].type == 'Jo_Ave') { %>
+                                                        <% if(main_dashboard[i].feed[j].msg4 == 'HEADER') { %>
+                                                            <div class="text-center">
+                                                                <b><%= main_dashboard[i].feed[j].type %></b> <%= main_dashboard[i].feed[j].msg1 %>%
+                                                            </div>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+                                            <% } %>
+                                        <% } %>
+                                    <% } %>
+                                    </div>
+                                </div>
+                                <!--end-->
                                 <br/>
                                 <% for(let i=0;i<main_dashboard.length;i++){ %>
                                     <% if(main_dashboard[i].feed) { %>

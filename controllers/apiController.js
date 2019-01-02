@@ -30,8 +30,6 @@ module.exports = function(app){
         res.header('Expires', '-1');
         res.header('Pragma', 'no-cache');
 
-
-
         if(req.userID && req.claim){
 
             let authenticity_token = jwt.sign({
