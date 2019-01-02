@@ -505,6 +505,25 @@
                                                             </div>
                                                         </div>
                                                     <% } %>
+                                                    <!-- color woho -->
+                                                    <% if((main_dashboard[i].feed[j].msg4).charAt(0) == '#') { %>
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="background-color: <%= main_dashboard[i].feed[j].msg4 %> ">
+                                                                <div class="direct-chat-msg">
+                                                                    <div class="direct-chat-info clearfix">
+                                                                        <span class="direct-chat-name pull-left">
+                                                                            <span class="ion ion-ios-box feed-activity-alert"></span>
+                                                                            <%= main_dashboard[i].feed[j].type %>
+                                                                        </span>
+                                                                        <span class="direct-chat-timestamp pull-right"></span>
+                                                                    </div>
+                                                                    <div class="direct-chat-text mrl-text"  >
+                                                                            <%= main_dashboard[i].feed[j].msg1 %> / <%= main_dashboard[i].feed[j].msg2 %>  = <%= main_dashboard[i].feed[j].msg3 %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
                                                 <% } %>
                                             <% } %>
                                         <% } %>
@@ -539,7 +558,7 @@
                                                 <% if(main_dashboard[i].feed[j].type == 'LOTID') { %>
                                                     <% if(metaData.ost[x].name == main_dashboard[i].feed[j].ost) { %>
                                                     <div style="font-size: 14px;">
-                                                        <small><a href="/ost-lot-trace?authenticity_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE4NzU4NzVlLWZmNjctNDQ1MC05Nzg1LWEwODIwODQwNTI0NyIsImNsYWltIjp7InNpZ251cCI6InZhbGlkIn0sImlhdCI6MTU0MjE3ODAyMH0.qMCo76dzDA5BnHvCM0zt77zZyCVC5l8ueBtsWpKczTc&toTrace=<%= main_dashboard[i].feed[j].msg1 %>" target="_blank"><%= main_dashboard[i].feed[j].msg1 %></a></small>
+                                                        <small><%= main_dashboard[i].feed[j].msg1 %></small>
                                                     </div>
                                                     <% } %>
                                                 <% } %>
