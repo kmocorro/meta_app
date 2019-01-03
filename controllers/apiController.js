@@ -1186,6 +1186,13 @@ module.exports = function(app){
 
                                 let main_dashboard = [];
 
+                                let main_dashboard_target = {
+                                    efficiency: 25.000,
+                                    binning: 65.00,
+                                    cosmetics: 94,
+                                    djv: -0.104
+                                }
+
                                 main_dashboard.push(
                                     ost_feed1,
                                     ost_feed2,
@@ -1297,7 +1304,7 @@ module.exports = function(app){
                                         return binning_AVE().then(function(binning){
                                             return cosmetics_AVE().then(function(cosmetics){
 
-                                                res.render('ost_all', {name: 'OST 1-5', efficiency, djv, binning, cosmetics, main_dashboard, metaData});
+                                                res.render('ost_all', {name: 'OST 1-5', efficiency, djv, binning, cosmetics, main_dashboard, metaData, main_dashboard_target});
                                                 //res.send('under maintenance.');
                                             });
                                         });

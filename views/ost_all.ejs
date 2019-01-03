@@ -330,9 +330,19 @@
                         <span class="info-box-icon bg-blue dashboard-feed-logo"><i class="ion ion-ios-sunny-outline"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Lot Efficiency</span>
-                            <span class="info-box-number">
-                                <%= efficiency %>%
-                            </span>
+                            <% if(efficiency < main_dashboard_target.efficiency){ %>
+                                <span class="info-box-number" style="color:red">
+                                    <%= efficiency %>%
+                                </span>
+                            <% } else if(efficiency > main_dashboard_target.efficiency) { %>
+                                <span class="info-box-number" style="color:green">
+                                    <%= efficiency %>%
+                                </span>
+                            <% } else { %>
+                                <span class="info-box-number">
+                                    <%= efficiency %>%
+                                </span>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -342,7 +352,19 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Bin - Ne</span>
                             <span class="info-box-number">
-                                <%= binning %>%
+                                <% if(binning < main_dashboard_target.binning){ %>
+                                    <span class="info-box-number" style="color:red">
+                                        <%= binning %>%
+                                    </span>
+                                <% } else if(binning > main_dashboard_target.binning) { %>
+                                    <span class="info-box-number" style="color:green">
+                                        <%= binning %>%
+                                    </span>
+                                <% } else { %>
+                                    <span class="info-box-number">
+                                        <%= binning %>%
+                                    </span>
+                                <% } %>
                             </span>
                         </div>
                     </div>
@@ -353,7 +375,19 @@
                         <div class="info-box-content">
                             <span class="info-box-text">%Black</span>
                             <span class="info-box-number">
-                                <%= cosmetics %>%
+                                <% if(cosmetics < main_dashboard_target.cosmetics){ %>
+                                    <span class="info-box-number" style="color:red">
+                                        <%= cosmetics %>%
+                                    </span>
+                                <% } else if(cosmetics >= main_dashboard_target.cosmetics) { %>
+                                    <span class="info-box-number" style="color:green">
+                                        <%= cosmetics %>%
+                                    </span>
+                                <% } else { %>
+                                    <span class="info-box-number">
+                                        <%= cosmetics %>%
+                                    </span>
+                                <% } %>
                             </span>
                         </div>
                     </div>
@@ -364,7 +398,19 @@
                         <div class="info-box-content">
                             <span class="info-box-text">dJV</span>
                             <span class="info-box-number">
-                                <%= djv %>
+                                <% if(djv > main_dashboard_target.djv){ %>
+                                    <span class="info-box-number" style="color:red">
+                                        <%= djv %>%
+                                    </span>
+                                <% } else if(djv <= main_dashboard_target.djv) { %>
+                                    <span class="info-box-number" style="color:green">
+                                        <%= djv %>%
+                                    </span>
+                                <% } else { %>
+                                    <span class="info-box-number">
+                                        <%= djv %>%
+                                    </span>
+                                <% } %>
                             </span>
                         </div>
                     </div>
@@ -375,7 +421,7 @@
                     <% if(metaData.ost[x].name) { %>
                     <div class="col-md-2  box-5-fit">
                         <div class="box box-default">
-                            <div class="box-header with-border">
+                            <div class="box-header with-border" style="padding:3px;">
                                 <h3 class="box-title"><%= metaData.ost[x].name %></h3>
                             </div>
                             <div class="box-body ost-boxes-style">
