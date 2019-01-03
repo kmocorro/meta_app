@@ -331,16 +331,22 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Lot Efficiency</span>
                             <% if(efficiency < main_dashboard_target.efficiency){ %>
-                                <span class="info-box-number" style="color:red">
-                                    <%= efficiency %>%
+                                <span class="info-box-number">
+                                    <%= efficiency %>
+                                    <span class="" style="color:red; font-size: 12px">
+                                        <%= computation_dashboard.efficiency_value_diff %> (<%= computation_dashboard.efficiency_percent_diff %>) 
+                                    </span>
                                 </span>
                             <% } else if(efficiency > main_dashboard_target.efficiency) { %>
-                                <span class="info-box-number" style="color:green">
-                                    <%= efficiency %>%
+                                <span class="info-box-number">
+                                    <%= efficiency %>
+                                    <span class="" style="color:green; font-size: 12px">
+                                        <%= computation_dashboard.efficiency_value_diff %> (+<%= computation_dashboard.efficiency_percent_diff %>) 
+                                    </span>
                                 </span>
                             <% } else { %>
                                 <span class="info-box-number">
-                                    <%= efficiency %>%
+                                    <%= efficiency %>
                                 </span>
                             <% } %>
                         </div>
@@ -353,12 +359,22 @@
                             <span class="info-box-text">Bin - Ne</span>
                             <span class="info-box-number">
                                 <% if(binning < main_dashboard_target.binning){ %>
-                                    <span class="info-box-number" style="color:red">
-                                        <%= binning %>%
+                                    <span class="info-box-number">
+                                        <%= binning %>
+                                        
+                                        <span class="" style="color:red; font-size: 12px">
+                                            <%= computation_dashboard.binning_value_diff %> (<%= computation_dashboard.binning_percent_diff %>) 
+                                        </span>
+
                                     </span>
                                 <% } else if(binning > main_dashboard_target.binning) { %>
-                                    <span class="info-box-number" style="color:green">
-                                        <%= binning %>%
+                                    <span class="info-box-number">
+                                        <%= binning %>
+                                        
+                                        <span class="" style="color:green; font-size: 12px">
+                                            <%= computation_dashboard.binning_value_diff %> (+<%= computation_dashboard.binning_percent_diff %>) 
+                                        </span>
+
                                     </span>
                                 <% } else { %>
                                     <span class="info-box-number">
@@ -376,12 +392,20 @@
                             <span class="info-box-text">%Black</span>
                             <span class="info-box-number">
                                 <% if(cosmetics < main_dashboard_target.cosmetics){ %>
-                                    <span class="info-box-number" style="color:red">
-                                        <%= cosmetics %>%
+                                    <span class="info-box-number">
+                                        <%= cosmetics %>
+                                        
+                                        <span class="" style="color:red; font-size: 12px">
+                                            <%= computation_dashboard.cosmetics_value_diff %> (<%= computation_dashboard.cosmetics_percent_diff %>) 
+                                        </span>
                                     </span>
                                 <% } else if(cosmetics >= main_dashboard_target.cosmetics) { %>
-                                    <span class="info-box-number" style="color:green">
-                                        <%= cosmetics %>%
+                                    <span class="info-box-number">
+                                        <%= cosmetics %>
+                                        
+                                        <span class="" style="color:green; font-size: 12px">
+                                            <%= computation_dashboard.cosmetics_value_diff %> (+<%= computation_dashboard.cosmetics_percent_diff %>) 
+                                        </span>
                                     </span>
                                 <% } else { %>
                                     <span class="info-box-number">
@@ -398,11 +422,11 @@
                         <div class="info-box-content">
                             <span class="info-box-text">dJV</span>
                             <span class="info-box-number">
-                                <% if(djv > main_dashboard_target.djv){ %>
+                                <% if(djv < main_dashboard_target.djv){ %>
                                     <span class="info-box-number" style="color:red">
                                         <%= djv %>%
                                     </span>
-                                <% } else if(djv <= main_dashboard_target.djv) { %>
+                                <% } else if(djv >= main_dashboard_target.djv) { %>
                                     <span class="info-box-number" style="color:green">
                                         <%= djv %>%
                                     </span>

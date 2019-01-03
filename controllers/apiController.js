@@ -1304,7 +1304,18 @@ module.exports = function(app){
                                         return binning_AVE().then(function(binning){
                                             return cosmetics_AVE().then(function(cosmetics){
 
-                                                res.render('ost_all', {name: 'OST 1-5', efficiency, djv, binning, cosmetics, main_dashboard, metaData, main_dashboard_target});
+                                                let computation_dashboard = {
+                                                    efficiency_value_diff: (efficiency - main_dashboard_target.efficiency).toFixed(3),
+                                                    efficiency_percent_diff: (((efficiency - main_dashboard_target.efficiency) / ((efficiency + main_dashboard_target.efficiency) / 2)) * 100).toFixed(3) + '%',
+
+                                                    binning_value_diff: (binning - main_dashboard_target.binning).toFixed(3),
+                                                    binning_percent_diff: (((binning - main_dashboard_target.binning) / ((binning + main_dashboard_target.binning) / 2)) * 100).toFixed(3) + '%',
+
+                                                    cosmetics_value_diff: (cosmetics - main_dashboard_target.cosmetics).toFixed(3),
+                                                    cosmetics_percent_diff: (((cosmetics - main_dashboard_target.cosmetics) / ((cosmetics + main_dashboard_target.cosmetics) / 2)) * 100).toFixed(3) + '%',
+                                                }
+
+                                                res.render('ost_all', {name: 'OST 1-5', efficiency, djv, binning, cosmetics, main_dashboard, metaData, main_dashboard_target, computation_dashboard});
                                                 //res.send('under maintenance.');
                                             });
                                         });
