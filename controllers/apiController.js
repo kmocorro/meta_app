@@ -16,15 +16,6 @@ module.exports = function(app){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
-    /**
-     * API: GET
-     * Access: Home
-     * View: index, signin
-     * Required: auth token
-     * @param {userID, claim} verifyToken
-     * @param {firstname, department} res
-     */
-
     app.get('/', verifyToken, function(req, res){
         res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
         res.header('Expires', '-1');
