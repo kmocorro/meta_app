@@ -8,7 +8,7 @@ let apiController = require('./controllers/apiController');
 let socketController = require('./controllers/socketController');
 let authController = require('./auth/authController');
 
-let port = process.env.PORT || 9194;
+let port = process.env.PORT || 7070;
 
 app.use('/', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
