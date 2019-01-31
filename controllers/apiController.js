@@ -1400,6 +1400,303 @@ module.exports = function(app){
 
     });
 
+    app.get('/vf', function(req, res){
+
+        let vf_filename = 'Cluster1.VF.csv';
+        let vf_path = './public/feed/';
+
+        function cluster_1_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_path + vf_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Cluster1'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14]
+                                    })
+                                }
+                            }
+                        }
+
+                        let dashboard = {
+                            feed: feed_to_display
+                        }
+
+                        resolve(dashboard);
+
+                    }
+                });
+
+            });
+        }
+
+        function cluster_2_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_path + vf_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Cluster2'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14]
+                                    })
+                                }
+                            }
+                        }
+
+                        let dashboard = {
+                            feed: feed_to_display
+                        }
+
+                        resolve(dashboard);
+
+                    }
+                });
+
+            });
+        }
+
+        function cluster_3_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_path + vf_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Cluster3'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14]
+                                    })
+                                }
+                            }
+                        }
+
+                        let dashboard = {
+                            feed: feed_to_display
+                        }
+
+                        resolve(dashboard);
+
+                    }
+                });
+
+            });
+        }
+
+        function cluster_4_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_path + vf_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Cluster4'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14]
+                                    })
+                                }
+                            }
+                        }
+
+                        let dashboard = {
+                            feed: feed_to_display
+                        }
+
+                        resolve(dashboard);
+
+                    }
+                });
+
+            });
+        }
+
+        function cluster_5_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_path + vf_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Cluster5'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14]
+                                    })
+                                }
+                            }
+                        }
+
+                        let dashboard = {
+                            feed: feed_to_display
+                        }
+
+                        resolve(dashboard);
+
+                    }
+                });
+
+            });
+        }
+
+        cluster_1_feed().then(function(cluster1feed){
+            return cluster_2_feed().then(function(cluster2feed){
+                return cluster_3_feed().then(function(cluster3feed){
+                    return cluster_4_feed().then(function(cluster4feed){
+                        return cluster_5_feed().then(function(cluster5feed){
+                            
+                            let dashboard = [
+                                cluster1feed,
+                                cluster2feed,
+                                cluster3feed,
+                                cluster4feed,
+                                cluster5feed
+                            ]
+
+                            let cluster_metadata = [
+                                {name: 'Cluster1'},
+                                {name: 'Cluster2'},
+                                {name: 'Cluster3'},
+                                {name: 'Cluster4'},
+                                {name: 'Cluster5'},
+                            ]
+
+                            res.render('cluster', {dashboard, cluster_metadata});
+
+
+                        },  function(err){
+                            res.send('Error: ' + err);
+                        });
+
+                    },  function(err){
+                        res.send('Error: ' + err);
+                    });
+
+                },  function(err){
+                    res.send('Error: ' + err);
+                }); 
+
+            },  function(err){
+                res.send('Error: ' + err);
+            })
+
+        },  function(err){
+            res.send('Error: ' + err);
+        });
+
+    });
+
     app.get('/ost-lot-trace', function(req, res){
         
         let authenticity_token = jwt.sign({
