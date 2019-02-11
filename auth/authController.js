@@ -502,7 +502,7 @@ module.exports = function(app){
                             },  function(err, results){
                                 if(err){return res.send({err: 'Query email error.'})};
                                 
-                                if(typeof results != 'undefined' && results != null && results.length != null && results.length > 0){
+                                if(typeof results[0] !== 'undefined' && results[0] !== null && results.length > 0){
 
                                     let payload = {
                                         uuid: uuidv4(),
@@ -524,7 +524,7 @@ module.exports = function(app){
                                         }
 
                                         transporter.sendMail(mailSettings, function(error, info){
-                                            if(error){ return res.send({err: '<center>Oops, there is a problem folding the email.<br> Please try it again. </center>'})};
+                                            if(error){ return res.send({auth: error.errno + ' - ' + error.code})};
                                             res.send({auth: '<center>Request has been sent. <br> Please check your email address.</center>'});
                                         });
 

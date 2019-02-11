@@ -1436,7 +1436,9 @@ module.exports = function(app){
                                         queuetime: feed[11],
                                         colorqueuetime: feed[12],
                                         tool: feed[13],
-                                        tooldownmessage: feed[14]
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
                                     })
                                 }
                             }
@@ -1485,7 +1487,9 @@ module.exports = function(app){
                                         queuetime: feed[11],
                                         colorqueuetime: feed[12],
                                         tool: feed[13],
-                                        tooldownmessage: feed[14]
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
                                     })
                                 }
                             }
@@ -1534,7 +1538,9 @@ module.exports = function(app){
                                         queuetime: feed[11],
                                         colorqueuetime: feed[12],
                                         tool: feed[13],
-                                        tooldownmessage: feed[14]
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
                                     })
                                 }
                             }
@@ -1583,7 +1589,9 @@ module.exports = function(app){
                                         queuetime: feed[11],
                                         colorqueuetime: feed[12],
                                         tool: feed[13],
-                                        tooldownmessage: feed[14]
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
                                     })
                                 }
                             }
@@ -1632,7 +1640,9 @@ module.exports = function(app){
                                         queuetime: feed[11],
                                         colorqueuetime: feed[12],
                                         tool: feed[13],
-                                        tooldownmessage: feed[14]
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
                                     })
                                 }
                             }
