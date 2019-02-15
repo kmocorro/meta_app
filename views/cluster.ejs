@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="refresh" content="120">
+    <!--<meta http-equiv="refresh" content="120">-->
     <title>Visual Factory | META</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -335,15 +335,17 @@
                                             </span>
 
                                             <div class="info-box-content" style="margin-left: 50px">
-                                            <span class="info-box-text"><%= dashboard[i].feed[j].info %> (<%= dashboard[i].feed[j].toolprod %>/<%= dashboard[i].feed[j].tooldown %>) <%= dashboard[i].feed[j].queuetime %>
-                                                <span class="pull-right">
-                                                    <i class="ion ion-ios-more"></i>
+                                            <span class="info-box-text"><%= dashboard[i].feed[j].info %> <span style="font-size: 11px;">[<%= dashboard[i].feed[j].wipinside %>]</span>
+                                                <span class="pull-right" style="font-weight: 700;">
+                                                    (<%= dashboard[i].feed[j].toolprod %>/<%= dashboard[i].feed[j].tooldown %>)  <span style="font-weight: 300; font-size: 11px;"><%= dashboard[i].feed[j].queuetime %></span>
                                                 </span>
                                             </span>
-                                            <span class="info-box-number"><%= dashboard[i].feed[j].totalwip %></span>
+                                            <span class="info-box-number"><%= dashboard[i].feed[j].totalwip %> / <span style="font-size: 12px; font-weight: 400;"><%= dashboard[i].feed[j].stepcapacity %></span></span> 
+                                            
+                                            <span class="pull-right" style="font-weight: 600; font-size: 12px;"><%= dashboard[i].feed[j].oee_value %> / <span style="font-weight: 300; font-size: 10px;"><%= dashboard[i].feed[j].oee_target %></span></span>
                                                 <!-- /.info-box-content -->
                                             <div class="progress">
-                                                <div class="progress-bar" style="width: 0%"></div>
+                                                <div class="progress-bar" style="width: <%= dashboard[i].feed[j].oee_value %>"></div>
                                             </div>
                                             <span class="progress-description">
                                                     <%= dashboard[i].feed[j].tooldownmessage %>
