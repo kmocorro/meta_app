@@ -335,9 +335,9 @@
                                             </span>
 
                                             <div class="info-box-content" style="margin-left: 50px">
-                                            <span class="info-box-text"><%= dashboard[i].feed[j].info %> <span style="font-size: 11px;">[<%= dashboard[i].feed[j].wipinside %>]</span>
-                                                <span class="pull-right" style="font-weight: 700;">
-                                                    (<%= dashboard[i].feed[j].toolprod %>/<%= dashboard[i].feed[j].tooldown %>)  <span style="font-weight: 300; font-size: 11px;"><%= dashboard[i].feed[j].queuetime %></span>
+                                            <span class="info-box-text"><%= dashboard[i].feed[j].info %> <span style="font-size: 11px;">[<%= dashboard[i].feed[j].wipinside %>]  (<%= dashboard[i].feed[j].toolprod %>/<%= dashboard[i].feed[j].tooldown %>) </span>
+                                                <span class="pull-right" style="font-weight: 300;">
+                                                     <span style="font-weight: 700; font-size: 14px;"><%= dashboard[i].feed[j].queuetime %></span>
                                                 </span>
                                             </span>
                                             <span class="info-box-number"><%= dashboard[i].feed[j].totalwip %> / <span style="font-size: 12px; font-weight: 400;"><%= dashboard[i].feed[j].stepcapacity %></span></span> 
