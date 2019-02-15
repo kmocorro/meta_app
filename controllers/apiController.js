@@ -1846,6 +1846,14 @@ module.exports = function(app){
         res.render('ost-toolmark');
     });
 
+    app.get('/test-monitor-1', function(req, res){
+        res.render('test_monitor_1');
+    });
+
+    app.get('/test-monitor-2', function(req, res){
+        res.render('test_monitor_2');
+    });
+
     app.post('/api/hourly', function(req, res){
         let form = new formidable.IncomingForm();
 
