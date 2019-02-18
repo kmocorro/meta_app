@@ -329,6 +329,7 @@
 
                                     <% if(cluster_metadata[x].name == dashboard[i].feed[j].cluster ) { %>
 
+                                        <% if(dashboard[i].feed[j].colorfrontwip !== "bg-yellow") { %>
                                         <div class="info-box <%= dashboard[i].feed[j].colorfrontwip %>"> <!--colorfrontwip-->
                                             <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
                                                 <%= dashboard[i].feed[j].trolley %>
@@ -353,6 +354,35 @@
                                             </div>
                                             <!-- /.info-box-content -->
                                         </div>
+                                        <% } else { %>
+
+                                        <div class="info-box" style="background-color: #ffff33;"> <!--colorfrontwip-->
+                                            <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
+                                                <%= dashboard[i].feed[j].trolley %>
+                                            </span>
+
+                                            <div class="info-box-content" style="margin-left: 50px">
+                                            <span class="info-box-text"><%= dashboard[i].feed[j].info %> <span style="font-size: 11px;">[<%= dashboard[i].feed[j].wipinside %>]  (<%= dashboard[i].feed[j].toolprod %>/<%= dashboard[i].feed[j].tooldown %>) </span>
+                                                <span class="pull-right" style="font-weight: 300;">
+                                                     <span style="font-weight: 700; font-size: 14px;"><%= dashboard[i].feed[j].queuetime %></span>
+                                                </span>
+                                            </span>
+                                            <span class="info-box-number"><%= dashboard[i].feed[j].totalwip %> / <span style="font-size: 12px; font-weight: 400;"><%= dashboard[i].feed[j].stepcapacity %></span></span> 
+                                            
+                                            <span class="pull-right" style="font-weight: 600; font-size: 12px;"><%= dashboard[i].feed[j].oee_value %> / <span style="font-weight: 300; font-size: 10px;"><%= dashboard[i].feed[j].oee_target %></span></span>
+                                                <!-- /.info-box-content -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: <%= dashboard[i].feed[j].oee_value %>"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                    <%= dashboard[i].feed[j].tooldownmessage %>
+                                                </span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+
+                                        <% } %>
+                                        
 
                                     <% } %>
 
