@@ -307,8 +307,6 @@ module.exports = function(app){
                                     }
 
                                     transporter.sendMail(mailSettings, function(error, info){
-                                        console.log(error);
-                                        console.log(info);
                                         if(error){ return res.send({err: '<center>Oops, there is a problem folding the email.<br> Please try it again. </center>'})};
                                         res.send({auth: '<center>Success!<br> We\'ll send an email once account has been approved.</center>'});
                                     });
@@ -489,7 +487,7 @@ module.exports = function(app){
 
                     isTokenValid().then(function(){
 
-                        console.log(fields.email);
+                        //console.log(fields.email);
                         let forgettenEmail = fields.email + '@sunpowercorp.com';
 
                         // check user db if exists.
@@ -524,6 +522,10 @@ module.exports = function(app){
                                         }
 
                                         transporter.sendMail(mailSettings, function(error, info){
+                                            
+                                        console.log(error);
+                                        console.log(info);
+                                        
                                             if(error){ return res.send({auth: error.errno + ' - ' + error.code})};
                                             res.send({auth: '<center>Request has been sent. <br> Please check your email address.</center>'});
                                         });
