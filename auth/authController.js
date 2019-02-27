@@ -17,6 +17,15 @@ module.exports = function(app){
     /** Nodemailer transporter config */
     let transporter = nodemailer.createTransport(mailer.mail);
 
+    // verify connection configuration
+    transporter.verify(function(error, success) {
+        if (error) {
+        console.log(error);
+        } else {
+        console.log("Server is ready to take our messages");
+        }
+    });
+
     /** GET API for user LOGIN PAGE */
     app.get('/login', function(req, res){
 
@@ -525,7 +534,7 @@ module.exports = function(app){
                                             
                                         console.log(error);
                                         console.log(info);
-                                        
+
                                             if(error){ return res.send({auth: error.errno + ' - ' + error.code})};
                                             res.send({auth: '<center>Request has been sent. <br> Please check your email address.</center>'});
                                         });
