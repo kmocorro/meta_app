@@ -1,220 +1,177 @@
 let Client = require('ssh2').Client;
 let sshConfig = require('../config').sshConfig;
 let mysql = require('../config');
+let Tail = require('tail').Tail;
+
+let file_vf_simulator = ('public/Animation/Cluster.Fake.csv');
+let options= {separator: /[\r]{0,1}\n/, fromBeginning: false, fsWatchOptions: {}, follow: true, logger: console};
+
+let tail = new Tail(file_vf_simulator, options);
 
 module.exports = function(io){
 
     io.on('connection', function(socket){
         
-        socket.on('inline-thread', function(inline_msg){ // inline_msg: { inline_name : , status : , durations : }
+        let feed_to_display_cluster_1 = [];
+        let feed_to_display_cluster_2 = [];
+        let feed_to_display_cluster_3 = [];
+        let feed_to_display_cluster_4 = [];
+        let feed_to_display_cluster_5 = [];
 
-            let sshFilePathExecute = 'NOXE/NOXE_Relayer.sh ' + inline_msg.inline_name + ' ' + inline_msg.status + ' ' + inline_msg.duration;
-
-            let conn = new Client(); // build ssh client connection
-
-            mysql.pool.getConnection(function(err, connection){
-                if(err){return socket.emit('inline-thread-alert', {alert: 'Error on database connection.'})}
-                
-                connection.query({ // verify
-                    sql: 'SELECT * FROM tbl_inline_quick_change WHERE inline_name = ? ORDER BY id DESC LIMIT 1',
-                    values: [inline_msg.inline_name]
-                },  function(err, results){
-                    if(err){return socket.emit('inline-thread-alert', {alert: 'Error query on current status.'})};
-
-                    if(typeof results[0] !== 'undefined' && results[0] !== null && results.length > 0){
-
-                        if(results[0].status_name == 'Status Changed'){
-
-                            // return and disable button
-
-                            socket.emit('inline-thread-response', {
-                                message: { 
-                                    inline_name : inline_msg.inline_name,
-                                    status_name: 'Status Changed'
-                                }
-                            });
-                            connection.release();
-
-                        } else if (results[0].status_name == 'Status Reverted'){
-
-                            conn.on('ready', function(){ // connect to ssh
-                                console.log('SSH client :: open for ' + inline_msg.inline_name );
-
-                                // connect via ssh
-                                conn.shell(function(err, stream) {
-                                    if (err) throw err; // for the meantime.
-                    
-                                    stream.on('data', function(data) {
-                                        //console.log('STDOUT: ' + data);
-                                    });
-                                    stream.stderr.on('data', function(data) {
-                                        console.log('STDERR: ' + data);
-                    
-                                    });
-                                    stream.on('close', function() {
-                                        console.log('SSH client :: closed for ' + inline_msg.inline_name);
-                                    });
-                    
-                                });
-                    
-                                // execute bash file under ssh client
-                                conn.exec(sshFilePathExecute, function(err, stream){
-                                    if(err) throw err; // for the meantime.
-                    
-                                    stream.on('data', function(data){
-
-                                        let inline_details = {
-                                            cli: data,
-                                            buffer_to_string : Buffer.from(data).toString('utf-8').replace(/(\r\n\t|\n|\r\t)/gm,""),
-                                            date_time: new Date(),
-                                            inline_name: inline_msg.inline_name,
-                                            status_name: (Buffer.from(data).toString('utf-8')).split(':')[0],
-                                            status_info: (Buffer.from(data).toString('utf-8')).split(':')[1].replace(/(\r\n\t|\n|\r\t)/gm,""),
-                                            duration: inline_msg.duration
-                                        }
-
-                                        if(inline_details.status_name == 'Status Changed'){
-                                            connection.query({
-                                                sql: 'INSERT INTO tbl_inline_quick_change SET date_time = ?, inline_name = ?, status_name = ?, status_info = ?, duration = ? ',
-                                                values: [inline_details.date_time, inline_details.inline_name, inline_details.status_name, inline_details.status_info, inline_details.duration]
-                                            },  function(err){
-                                                if(err){return socket.emit('inline-thread-alert', {alert: 'Error inserting data to table.'})};
+        let meta_data_clusters = { // important to note.
+            c1: 4,
+            c2: 4,
+            c3: 3,
+            c4: 5,
+            c5: 4
+        }
+        
+        tail.on("line", function(feed_from_file){
+            //console.log(feed);
             
-                                                console.log(inline_details);
-                                                socket.emit('inline-thread-response', { message: inline_details});
-            
-                                            });
-    
-                                        } else if(inline_details.status_name == 'Status Reverted'){
-                                            connection.query({
-                                                sql: 'INSERT INTO tbl_inline_quick_change SET date_time = ?, inline_name = ?, status_name = ?, status_info = ?, duration = ? ',
-                                                values: [inline_details.date_time, inline_details.inline_name, inline_details.status_name, inline_details.status_info, inline_details.duration]
-                                            },  function(err){
-                                                if(err){return socket.emit('inline-thread-alert', {alert: 'Error inserting data to table.'})};
-            
-                                                console.log(inline_details);
-                                                socket.emit('inline-thread-response', { message: inline_details});
-        
-                                                connection.release();
-            
-                                            });
-    
-                                        }
 
-                                    });
-                                    stream.stderr.on('data', function(data){
-                                        console.log('STDERR: '+ data);
-                                    });
-                                    stream.on('close', function(code, signal){
-                                        //console.log('Process closed with code ' + code);
-                    
-                                        conn.end();
-                                    });
-                                });
-                    
-                            }).connect({
-                                host: sshConfig.host,
-                                port: sshConfig.port,
-                                username: sshConfig.username,
-                                privateKey: sshConfig.privateKey
-                            });
-                        }
+            let arr_data = feed_from_file.split('\n');
 
-                    } else {
+            for(let i=0; i<arr_data.length; i++){
 
-                        conn.on('ready', function(){ // connect to ssh
-                            console.log('SSH client :: open for ' + inline_msg.inline_name );
+                if(arr_data[i]){
+                    let feed = arr_data[i].split(',');
 
-                            // connect via ssh
-                            conn.shell(function(err, stream) {
-                                if (err) throw err; // for the meantime.
-                
-                                stream.on('data', function(data) {
-                                    //console.log('STDOUT: ' + data);
-                                });
-                                stream.stderr.on('data', function(data) {
-                                    console.log('STDERR: ' + data);
-                
-                                });
-                                stream.on('close', function() {
-                                    console.log('SSH client :: closed for ' + inline_msg.inline_name);
-                                });
-                
-                            });
-                
-                            // execute bash file under ssh client
-                            conn.exec(sshFilePathExecute, function(err, stream){
-                                if(err) throw err; // for the meantime.
-                
-                                stream.on('data', function(data){
-
-                                    let inline_details = {
-                                        cli: data,
-                                        buffer_to_string : Buffer.from(data).toString('utf-8').replace(/(\r\n\t|\n|\r\t)/gm,""),
-                                        date_time: new Date(),
-                                        inline_name: inline_msg.inline_name,
-                                        status_name: (Buffer.from(data).toString('utf-8')).split(':')[0],
-                                        status_info: (Buffer.from(data).toString('utf-8')).split(':')[1].replace(/(\r\n\t|\n|\r\t)/gm,""),
-                                        duration: inline_msg.duration
-                                    }
-
-                                    if(inline_details.status_name == 'Status Changed'){
-                                        connection.query({
-                                            sql: 'INSERT INTO tbl_inline_quick_change SET date_time = ?, inline_name = ?, status_name = ?, status_info = ?, duration = ? ',
-                                            values: [inline_details.date_time, inline_details.inline_name, inline_details.status_name, inline_details.status_info, inline_details.duration]
-                                        },  function(err){
-                                            if(err){return socket.emit('inline-thread-alert', {alert: 'Error inserting data to table.'})};
-        
-                                            console.log(inline_details);
-                                            socket.emit('inline-thread-response', { message: inline_details});
-        
-                                        });
-
-                                    } else if(inline_details.status_name == 'Status Reverted'){
-                                        connection.query({
-                                            sql: 'INSERT INTO tbl_inline_quick_change SET date_time = ?, inline_name = ?, status_name = ?, status_info = ?, duration = ? ',
-                                            values: [inline_details.date_time, inline_details.inline_name, inline_details.status_name, inline_details.status_info, inline_details.duration]
-                                        },  function(err){
-                                            if(err){return socket.emit('inline-thread-alert', {alert: 'Error inserting data to table.'})};
-        
-                                            console.log(inline_details);
-                                            socket.emit('inline-thread-response', { message: inline_details});
-    
-                                            connection.release();
-        
-                                        });
-
-                                    }
-
-                                });
-                                stream.stderr.on('data', function(data){
-                                    console.log('STDERR: '+ data);
-                                });
-                                stream.on('close', function(code, signal){
-                                    //console.log('Process closed with code ' + code);
-                
-                                    conn.end();
-                                });
-                            });
-                
-                        }).connect({
-                            host: sshConfig.host,
-                            port: sshConfig.port,
-                            username: sshConfig.username,
-                            privateKey: sshConfig.privateKey
+                    if(feed[0] == 'Cluster1'){
+                        feed_to_display_cluster_1.push({
+                            cluster: feed[0],
+                            info: feed[1],
+                            tooltotal: feed[2],
+                            toolprod: feed[3],
+                            tooldown: feed[4] || 0,
+                            stepcapacity: feed[5],
+                            totalwip: feed[6],
+                            trolley: (feed[7] / 500 || 0).toFixed(0),
+                            frontingwip: feed[7],
+                            wipinside: feed[8],
+                            colorfrontwip: feed[9],
+                            colorfrontfg: feed[10],
+                            queuetime: feed[11],
+                            colorqueuetime: feed[12],
+                            tool: feed[13],
+                            tooldownmessage: feed[14],
+                            oee_value: feed[15],
+                            oee_target: feed[16],
                         });
-
+                    } else if(feed[0] == 'Cluster2'){
+                        feed_to_display_cluster_2.push({
+                            cluster: feed[0],
+                            info: feed[1],
+                            tooltotal: feed[2],
+                            toolprod: feed[3],
+                            tooldown: feed[4] || 0,
+                            stepcapacity: feed[5],
+                            totalwip: feed[6],
+                            trolley: (feed[7] / 500 || 0).toFixed(0),
+                            frontingwip: feed[7],
+                            wipinside: feed[8],
+                            colorfrontwip: feed[9],
+                            colorfrontfg: feed[10],
+                            queuetime: feed[11],
+                            colorqueuetime: feed[12],
+                            tool: feed[13],
+                            tooldownmessage: feed[14],
+                            oee_value: feed[15],
+                            oee_target: feed[16],
+                        });
+                    } else if(feed[0] == 'Cluster3'){
+                        feed_to_display_cluster_3.push({
+                            cluster: feed[0],
+                            info: feed[1],
+                            tooltotal: feed[2],
+                            toolprod: feed[3],
+                            tooldown: feed[4] || 0,
+                            stepcapacity: feed[5],
+                            totalwip: feed[6],
+                            trolley: (feed[7] / 500 || 0).toFixed(0),
+                            frontingwip: feed[7],
+                            wipinside: feed[8],
+                            colorfrontwip: feed[9],
+                            colorfrontfg: feed[10],
+                            queuetime: feed[11],
+                            colorqueuetime: feed[12],
+                            tool: feed[13],
+                            tooldownmessage: feed[14],
+                            oee_value: feed[15],
+                            oee_target: feed[16],
+                        });
+                    } else if(feed[0] == 'Cluster4'){
+                        feed_to_display_cluster_4.push({
+                            cluster: feed[0],
+                            info: feed[1],
+                            tooltotal: feed[2],
+                            toolprod: feed[3],
+                            tooldown: feed[4] || 0,
+                            stepcapacity: feed[5],
+                            totalwip: feed[6],
+                            trolley: (feed[7] / 500 || 0).toFixed(0),
+                            frontingwip: feed[7],
+                            wipinside: feed[8],
+                            colorfrontwip: feed[9],
+                            colorfrontfg: feed[10],
+                            queuetime: feed[11],
+                            colorqueuetime: feed[12],
+                            tool: feed[13],
+                            tooldownmessage: feed[14],
+                            oee_value: feed[15],
+                            oee_target: feed[16],
+                        });
+                    } else if(feed[0] == 'Cluster5'){
+                        feed_to_display_cluster_5.push({
+                            cluster: feed[0],
+                            info: feed[1],
+                            tooltotal: feed[2],
+                            toolprod: feed[3],
+                            tooldown: feed[4] || 0,
+                            stepcapacity: feed[5],
+                            totalwip: feed[6],
+                            trolley: (feed[7] / 500 || 0).toFixed(0),
+                            frontingwip: feed[7],
+                            wipinside: feed[8],
+                            colorfrontwip: feed[9],
+                            colorfrontfg: feed[10],
+                            queuetime: feed[11],
+                            colorqueuetime: feed[12],
+                            tool: feed[13],
+                            tooldownmessage: feed[14],
+                            oee_value: feed[15],
+                            oee_target: feed[16],
+                        });
                     }
-                    
-                });
+                }
+            }
+        
+            let dashboard = [
+                {feed: feed_to_display_cluster_1},
+                {feed: feed_to_display_cluster_2},
+                {feed: feed_to_display_cluster_3},
+                {feed: feed_to_display_cluster_4},
+                {feed: feed_to_display_cluster_5}
+            ]
+            
+            if(meta_data_clusters.c1 == dashboard[0].feed.length && meta_data_clusters.c2 == dashboard[1].feed.length && meta_data_clusters.c3 == dashboard[2].feed.length && meta_data_clusters.c4 == dashboard[3].feed.length && meta_data_clusters.c5 == dashboard[4].feed.length){
+                let cluster_metadata = [
+                    {name: 'Cluster1'},
+                    {name: 'Cluster2'},
+                    {name: 'Cluster3'},
+                    {name: 'Cluster4'},
+                    {name: 'Cluster5'},
+                ]
 
-            });
+                // before emitting, make sure that clusters array matched to metadata per cluster. (or number of process per cluster)
+                socket.emit('cluster-feed', dashboard, cluster_metadata);
+            }
+        });
 
+        tail.on("error", function(err){
+            console.log(err);
         });
 
     });
-
-
-        
 
 }
