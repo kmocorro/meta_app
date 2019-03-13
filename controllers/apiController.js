@@ -1749,7 +1749,7 @@ module.exports = function(app){
         }
 
         polyhydra_feed().then(function(polyhydra_feed){
-           // console.log(polyhydra_feed);
+           //console.log(polyhydra_feed);
             res.render('vf-ph', {polyhydra_feed});
             
         },  function(err){

@@ -312,6 +312,7 @@
         <section class="content">
             <div class="row">
                 <% if(polyhydra_feed) { %>
+                    <div class="col-md-10">
                     <% for(let i=0;i<polyhydra_feed.length; i++) { %>
                         <div class="col-md-2 box-5-fit">
                             <div class="info-box <%= polyhydra_feed[i].tube_color %>"> <!--colorfrontwip-->
@@ -341,6 +342,7 @@
                             
                         </div>
                     <% } %>
+                    </div>
                 <% } %>
             </div>
             <!-- Cluster Groups -->
