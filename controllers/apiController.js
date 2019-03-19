@@ -1758,6 +1758,57 @@ module.exports = function(app){
 
     });
 
+    app.get('/vf-pbl', function(req, res){
+
+        let vf_ph_filename = 'Poly.Baseline.csv';
+        let vf_ph_path = './public/feed/';
+        
+        function polyBaseline_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_ph_path + vf_ph_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'Poly'){
+                                    feed_to_display.push({
+                                        process: feed[0],
+                                        tube: feed[1],
+                                        palabas: feed[2],
+                                        tube_status: feed[3],
+                                        tube_color: feed[4] || 0,
+                                        tube_color_2: feed[5],
+                                        tube_message: feed[6]
+                                    });
+                                }
+                            }
+                        }
+
+                        resolve(feed_to_display);
+
+                    }
+                });
+
+            });
+        }
+
+        polyBaseline_feed().then(function(polybaseline_feed){
+           //console.log(polyhydra_feed);
+            res.render('vf-pbl', {polybaseline_feed});
+            
+        },  function(err){
+            res.send({err: err});
+        });
+
+    });
+
     app.get('/ost-lot-trace', function(req, res){
         
         let authenticity_token = jwt.sign({
