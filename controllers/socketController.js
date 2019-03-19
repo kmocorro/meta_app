@@ -3,12 +3,13 @@ let sshConfig = require('../config').sshConfig;
 let mysql = require('../config');
 let Tail = require('tail').Tail;
 
-let file_vf_simulator = ('public/Animation/Cluster.Fake.csv');
-let options= {separator: /[\r]{0,1}\n/, fromBeginning: false, fsWatchOptions: {}, follow: true, logger: console};
+//let file_vf_simulator = ('public/Animation/Cluster.Fake.csv');
+//let options= {separator: /[\r]{0,1}\n/, fromBeginning: false, fsWatchOptions: {}, follow: true, logger: console};
 
-let tail = new Tail(file_vf_simulator, options);
+//let tail = new Tail(file_vf_simulator, options);
 
 module.exports = function(io){
+    /*
 
     io.on('connection', function(socket){
         
@@ -173,5 +174,7 @@ module.exports = function(io){
         });
 
     });
+
+    */
 
 }

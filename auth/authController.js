@@ -395,7 +395,7 @@ module.exports = function(app){
         
                             // connect to database
                             mysql.pool.getConnection(function(err, connection){
-                                if(err){ return res.send({err: 'Database pool error at login.'})};
+                                if(err){ return res.send({err: 'Database pool error at login.' + err})};
         
                                 connection.query({
                                     sql: 'SELECT * FROM deepmes_auth_login WHERE username=?',
