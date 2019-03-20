@@ -1822,7 +1822,8 @@ module.exports = function(app){
                                         tube_color: feed[4] || 0,
                                         tube_color_2: feed[5],
                                         tube_message: feed[6],
-                                        line_pair: feed[7]
+                                        line_pair: feed[9],
+                                        sequence: feed[10]
                                     });
                                 }
                             }
@@ -1860,7 +1861,8 @@ module.exports = function(app){
                                             tube_color: feed[4] || 0,
                                             tube_color_2: feed[5],
                                             tube_message: feed[6],
-                                            line_pair: feed[9]
+                                            line_pair: feed[9],
+                                            sequence: feed[10]
                                         });
                                     }
                                 }
@@ -1899,7 +1901,8 @@ module.exports = function(app){
                                             tube_color: feed[4] || 0,
                                             tube_color_2: feed[5],
                                             tube_message: feed[6],
-                                            line_pair: feed[9]
+                                            line_pair: feed[9],
+                                            sequence: feed[10]
                                         });
                                     }
                                 }

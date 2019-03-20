@@ -319,16 +319,16 @@
                             <div class="col-md-2 box-5-fit">
                                 <div class="info-box <%= polybaseline_feed[i].tube_color %>"> <!--colorfrontwip-->
                                     <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
-                                        <%= polybaseline_feed[i].tube %>
+                                        <%= polybaseline_feed[i].sequence %>
                                     </span>
     
                                     <div class="info-box-content" style="margin-left: 50px">
-                                    <span class="info-box-text"><%= polybaseline_feed[i].process %> 
+                                    <span class="info-box-number" style="text-transform: uppercase;"><span style="font-weight: 700; font-size: 14px;"></span> <%= polybaseline_feed[i].process %> <%= polybaseline_feed[i].tube %>
                                         <span class="pull-right" style="font-weight: 300;">
-                                            <span style="font-weight: 700; font-size: 14px;"><%= polybaseline_feed[i].palabas %></span>
+                                            
                                         </span>
                                     </span>
-                                    <span class="info-box-number"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
+                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
                                     
                                     <span class="pull-right" style="font-weight: 600; font-size: 12px;"><span style="font-weight: 300; font-size: 10px;"></span></span>
                                         <!-- /.info-box-content -->
@@ -348,16 +348,15 @@
                             <div class="col-md-2 box-5-fit">
                                 <div class="info-box" style="background-color: #ffff33;"> <!--colorfrontwip-->
                                     <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
-                                        <%= polybaseline_feed[i].tube %>
+                                       <%= polybaseline_feed[i].sequence %>
                                     </span>
 
                                     <div class="info-box-content" style="margin-left: 50px">
-                                    <span class="info-box-text"><%= polybaseline_feed[i].process %> 
+                                    <span class="info-box-number" style="text-transform: uppercase;"><span style="font-weight: 700; font-size: 14px;"></span> <%= polybaseline_feed[i].process %> <%= polybaseline_feed[i].tube %>
                                         <span class="pull-right" style="font-weight: 300;">
-                                            <span style="font-weight: 700; font-size: 14px;"><%= polybaseline_feed[i].palabas %></span>
                                         </span>
                                     </span>
-                                    <span class="info-box-number"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
+                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
                                     
                                     <span class="pull-right" style="font-weight: 600; font-size: 12px;"><span style="font-weight: 300; font-size: 10px;"></span></span>
                                         <!-- /.info-box-content -->
