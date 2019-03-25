@@ -1802,9 +1802,9 @@ module.exports = function(app){
                                         });
                                     }
 
-                                } else { // < 170 meaning supposedly, tubes status is already reset
+                                } else { // < 170
 
-                                    if(polybaseline_json.tube[j].ack_value == 1 && polybaseline_json.tube[j].status == 'Reset'){ // pressed
+                                    if(polybaseline_json.tube[j].ack_value == 1 && polybaseline_json.tube[j].status == 'Pressed'){ // pressed
 
                                         // check if tube box color is yellow or green and status is reset.
                                         if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
