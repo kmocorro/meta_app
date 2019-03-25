@@ -1809,14 +1809,14 @@ module.exports = function(app){
                                         // check if tube box color is yellow or green and status is reset.
                                         if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
                                             
-                                            console.log(polybaseline_feed[i]);
-                                            console.log(polybaseline_json.tube[j]);
+                                            //console.log(polybaseline_feed[i]);
+                                            //console.log(polybaseline_json.tube[j]);
 
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
                                                 ack_value: 0,
                                                 date_time: moment(new Date()).format('llll'),
-                                                status: 'Reset'
+                                                status:  polybaseline_json.tube[j].status
                                             });
     
                                         } else {
@@ -1825,11 +1825,36 @@ module.exports = function(app){
                                                 name: polybaseline_json.tube[j].name,
                                                 ack_value: polybaseline_json.tube[j].ack_value,
                                                 date_time: moment(new Date()).format('llll'),
-                                                status: 'Reset'
+                                                status:  polybaseline_json.tube[j].status
                                             });
                                         }
 
-                                    } else { // unpressed button.
+                                    } else if(polybaseline_json.tube[j].ack_value == 1 && polybaseline_json.tube[j].status == 'Reset') { // reset button. but still live.
+
+                                        // check if tube box color is yellow or green and status is reset.
+                                        if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
+                                            
+                                            //console.log(polybaseline_feed[i]);
+                                            //console.log(polybaseline_json.tube[j]);
+
+                                            updated_tube.push({
+                                                name: polybaseline_json.tube[j].name,
+                                                ack_value: 0,
+                                                date_time: moment(new Date()).format('llll'),
+                                                status: polybaseline_json.tube[j].status
+                                            });
+    
+                                        } else {
+
+                                            updated_tube.push({
+                                                name: polybaseline_json.tube[j].name,
+                                                ack_value: polybaseline_json.tube[j].ack_value,
+                                                date_time: moment(new Date()).format('llll'),
+                                                status: polybaseline_json.tube[j].status
+                                            });
+                                        }
+
+                                    } else {
 
                                         updated_tube.push({
                                             name: polybaseline_json.tube[j].name,
@@ -1837,7 +1862,7 @@ module.exports = function(app){
                                             date_time: polybaseline_json.tube[j].date_time,
                                             status: polybaseline_json.tube[j].status,
                                         });
-                                        
+
                                     }
                                     
                                 }
@@ -2270,6 +2295,10 @@ module.exports = function(app){
 
     app.get('/test-monitor-2', function(req, res){
         res.render('test_monitor_2');
+    });
+
+    app.get('/test-monitor-3', function(req, res){
+        res.render('test_monitor_3');
     });
 
     app.post('/api/hourly', function(req, res){
