@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
     <!--FAB4-->
     <link rel="stylesheet" href="../assets/dist/css/fab4meta.css">
-    <!-- Plotly JS-->
-    <script src="../charts/plotly.min.js"></script>
 
 </head>
 <body class="sidebar-mini skin-black-light sidebar-collapse">
@@ -433,15 +431,6 @@
 <script>
     $(function(){
         $('#perlot').DataTable();
-    });
-</script>
-<script src="/socket.io/socket.io.js"></script>
-
-<script>
-  var socket = io.connect('http://localhost:7070/');
-    socket.on('cluster-feed', function(dashboard, cluster_metadata){
-        console.log(dashboard);
-        console.log(cluster_metadata);
     });
 </script>
 </body>

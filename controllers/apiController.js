@@ -1762,14 +1762,90 @@ module.exports = function(app){
 
         let vf_ph_filename = 'Poly.Baseline.csv';
         let vf_ph_path = './public/feed/';
+        
+        let vf_pbl_polybaseline_path = './public/acknowledge/';
+        let vf_pbl_polybaseline_filename = 'polyBaseline.json';
 
         let line_pair = req.query.linepair;
 
         if(line_pair == '1'){
 
             polyBaseline_feed_linePair_1().then(function(polybaseline_feed){
-                console.log(polybaseline_feed);
-                res.render('vf-pbl', {polybaseline_feed});
+                return render_acknowledge_button().then(function(polybaseline_json){
+
+                    let updated_tube = [];
+
+                    for(let i=0; i<polybaseline_feed.length;i++){
+                        for(let j=0;j<polybaseline_json.tube.length;j++){
+                            
+                            if(polybaseline_feed[i].full_tubename == polybaseline_json.tube[j].name){
+
+                                // check if need to reset now.
+                                if(polybaseline_feed[i].tube_minutes > '170'){ 
+
+                                    if(polybaseline_feed[i].ack_value == 1){ 
+
+                                        updated_tube.push({
+                                            name: polybaseline_json.tube[j].name,
+                                            ack_value: polybaseline_json.tube[j].ack_value,
+                                            date_time: moment(new Date()).format('llll'),
+                                            status: "Reset"
+                                        });
+
+                                        if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green' && polybaseline_json.tube[j].status == 'Reset'){
+    
+                                            updated_tube.push({
+                                                name: polybaseline_json.tube[j].name,
+                                                ack_value: 0,
+                                                date_time: polybaseline_json.tube[j].date_time,
+                                                status:  polybaseline_json.tube[j].status
+                                            });
+
+                                        } 
+
+                                    } else {
+                                            
+                                        updated_tube.push({
+                                            name: polybaseline_json.tube[j].name,
+                                            ack_value: polybaseline_json.tube[j].ack_value,
+                                            date_time: polybaseline_json.tube[j].date_time,
+                                            status: polybaseline_json.tube[j].status
+                                        });
+                                    }
+
+                                } else {
+
+                                    updated_tube.push({
+                                        name: polybaseline_json.tube[j].name,
+                                        ack_value: polybaseline_json.tube[j].ack_value,
+                                        date_time: polybaseline_json.tube[j].date_time,
+                                        status: polybaseline_json.tube[j].status
+                                    });
+                                }
+
+                            }
+                        }
+                    }
+
+                    let acknowledge_button_logic = {
+                        tube: updated_tube
+                    }
+
+                    // update json file.
+                    fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
+                        if(err){console.log(err)};
+                        
+                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(acknowledge_button_logic), function(err, data){
+                            if(err){console.log(err)};
+
+                            res.render('vf-pbl', {polybaseline_feed, acknowledge_button_logic});
+                        });
+                    });
+
+                    
+
+                });
+                
                  
             },  function(err){
                 res.send({err: err});
@@ -1856,11 +1932,13 @@ module.exports = function(app){
                                         feed_to_display.push({
                                             process: feed[0],
                                             tube: feed[1],
+                                            full_tubename: feed[0] + '_' + feed[1],
                                             palabas: feed[2],
                                             tube_status: feed[3],
                                             tube_color: feed[4] || 0,
                                             tube_color_2: feed[5],
                                             tube_message: feed[6],
+                                            tube_minutes: feed[8],
                                             line_pair: feed[9],
                                             sequence: feed[10]
                                         });
@@ -1916,7 +1994,115 @@ module.exports = function(app){
 
             });
         }
+
+        function render_acknowledge_button(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, 'utf8', function(err, data){
+                    if(err){reject(err)};
+
+                    let polybaseline_json = JSON.parse(data);
+
+                    resolve(polybaseline_json);
+                });
+
+            });
+        }
+
+    });
+
+    app.post('/api/vf-pbl-acknowledge', function(req, res){
+
+        let backURL = req.header('Referer') || '/';
+        let vf_pbl_polybaseline_path = './public/acknowledge/';
+        let vf_pbl_polybaseline_filename = 'polyBaseline.json';
+
+        let poly_buttons_pressed = [
+            req.body.Poly_01A,
+            req.body.Poly_01B,
+            req.body.Poly_01C,
+            req.body.Poly_01D,
+            req.body.Poly_02A,
+            req.body.Poly_02B,
+            req.body.Poly_02C,
+            req.body.Poly_02D,
+            req.body.Poly_03A,
+            req.body.Poly_03B,
+            req.body.Poly_03C,
+            req.body.Poly_03D,
+            req.body.Poly_04A,
+            req.body.Poly_04B,
+            req.body.Poly_04C,
+            req.body.Poly_04D,
+            req.body.Poly_05A,
+            req.body.Poly_05B,
+            req.body.Poly_05C,
+            req.body.Poly_05D,
+        ]
+
+        function api_render_acknowledge_button(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, 'utf8', function(err, data){
+                    if(err){reject(err)};
+
+                    let polybaseline_json = JSON.parse(data);
+
+                    resolve(polybaseline_json);
+                });
+
+            });
+        }
         
+        api_render_acknowledge_button().then(function(polybaseline_json){
+
+            let polyBaseline_acknowledged = [];
+
+            for(let i=0;i<poly_buttons_pressed.length;i++){
+
+                if(poly_buttons_pressed[i]){ // is button activated by user?
+
+                    for(let j=0;j<polybaseline_json.tube.length;j++){
+
+                        if(poly_buttons_pressed[i] == polybaseline_json.tube[j].name){
+
+                            polyBaseline_acknowledged.push({
+                                name: polybaseline_json.tube[j].name,
+                                ack_value: 1,
+                                date_time: moment(new Date()).format('llll'),
+                                status: "Pressed"
+                            });
+
+                        } else {
+
+                            polyBaseline_acknowledged.push({
+                                name: polybaseline_json.tube[j].name,
+                                ack_value: polybaseline_json.tube[j].ack_value,
+                                date_time: polybaseline_json.tube[j].date_time,
+                                status: polybaseline_json.tube[j].status
+                            });
+
+                        }
+
+                    }
+
+                } 
+            }
+
+            let pressed_button_logic = {
+                tube: polyBaseline_acknowledged
+            }
+
+            // update json file.
+            fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
+                if(err){console.log(err)};
+                fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(pressed_button_logic), function(err, data){
+                    if(err){console.log(err)};
+                });
+            });
+
+            res.redirect(backURL);
+        });
 
     });
 

@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="../assets/dist/css/skins/_all-skins.min.css">
     <!--FAB4-->
     <link rel="stylesheet" href="../assets/dist/css/fab4meta.css">
-    <!-- Plotly JS-->
-    <script src="../charts/plotly.min.js"></script>
 
 </head>
 <body class="sidebar-mini skin-black-light sidebar-collapse">
@@ -324,11 +322,28 @@
     
                                     <div class="info-box-content" style="margin-left: 50px">
                                     <span class="info-box-number" style="text-transform: uppercase;"><span style="font-weight: 700; font-size: 14px;"></span> <%= polybaseline_feed[i].process %> <%= polybaseline_feed[i].tube %>
-                                        <span class="pull-right" style="font-weight: 300;">
-                                            
+                                        <span class="pull-right" style="font-weight: 300; font-size:16px;">
+                                            <form method="POST" action="/api/vf-pbl-acknowledge">
+                                                <input type="hidden" value="<%= polybaseline_feed[i].process %>_<%= polybaseline_feed[i].tube %>" name="<%= polybaseline_feed[i].process %>_<%= polybaseline_feed[i].tube %>">
+                                                
+                                                <% for(let j=0;j<acknowledge_button_logic.tube.length; j++) { %>
+                                                    <% if(polybaseline_feed[i].full_tubename == acknowledge_button_logic.tube[j].name){ %>
+                                                        <% if(acknowledge_button_logic.tube[j].ack_value == '0') { %>
+                                                            <button class="btn btn-info btn-xs" type="submit" value="submit">
+                                                                <span class="fa fa-star"></span>
+                                                            </button>
+                                                        <% } else { %>
+                                                            <button class="btn btn-default btn-xs" type="submit" disabled value="submit">
+                                                                <span class="fa fa-star"></span>
+                                                            </button>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+
+                                            </form>
                                         </span>
                                     </span>
-                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
+                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %> / <span style="font-size: 12px; font-weight: 700;"><%= polybaseline_feed[i].palabas %></span></span> 
                                     
                                     <span class="pull-right" style="font-weight: 600; font-size: 12px;"><span style="font-weight: 300; font-size: 10px;"></span></span>
                                         <!-- /.info-box-content -->
@@ -354,9 +369,27 @@
                                     <div class="info-box-content" style="margin-left: 50px">
                                     <span class="info-box-number" style="text-transform: uppercase;"><span style="font-weight: 700; font-size: 14px;"></span> <%= polybaseline_feed[i].process %> <%= polybaseline_feed[i].tube %>
                                         <span class="pull-right" style="font-weight: 300;">
+                                            <form method="POST" action="/api/vf-pbl-acknowledge">
+                                                <input type="hidden" value="<%= polybaseline_feed[i].process %>_<%= polybaseline_feed[i].tube %>" name="<%= polybaseline_feed[i].process %>_<%= polybaseline_feed[i].tube %>">
+                                                
+                                                <% for(let j=0;j<acknowledge_button_logic.tube.length; j++) { %>
+                                                    <% if(polybaseline_feed[i].full_tubename == acknowledge_button_logic.tube[j].name){ %>
+                                                        <% if(acknowledge_button_logic.tube[j].ack_value == '0') { %>
+                                                            <button class="btn btn-info btn-xs" type="submit" value="submit">
+                                                                <span class="fa fa-star"></span>
+                                                            </button>
+                                                        <% } else { %>
+                                                            <button class="btn btn-default btn-xs" type="submit" disabled value="submit">
+                                                                <span class="fa fa-star"></span>
+                                                            </button>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+                                                
+                                            </form>
                                         </span>
                                     </span>
-                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %><span style="font-size: 12px; font-weight: 400;"></span></span> 
+                                    <span class="info-box-text"><%= polybaseline_feed[i].tube_status %> / <span style="font-size: 12px; font-weight: 700;"><%= polybaseline_feed[i].palabas %></span></span> 
                                     
                                     <span class="pull-right" style="font-weight: 600; font-size: 12px;"><span style="font-weight: 300; font-size: 10px;"></span></span>
                                         <!-- /.info-box-content -->
@@ -432,15 +465,6 @@
 <script>
     $(function(){
         $('#perlot').DataTable();
-    });
-</script>
-<script src="/socket.io/socket.io.js"></script>
-
-<script>
-  var socket = io.connect('http://localhost:7070/');
-    socket.on('cluster-feed', function(dashboard, cluster_metadata){
-        console.log(dashboard);
-        console.log(cluster_metadata);
     });
 </script>
 </body>
