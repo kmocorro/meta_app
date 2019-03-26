@@ -2186,6 +2186,8 @@ module.exports = function(app){
 
                         resolve(feed_to_display);
 
+                    } else {
+                        reject('No Data from file');
                     }
                 });
 
