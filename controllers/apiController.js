@@ -2125,6 +2125,75 @@ module.exports = function(app){
 
     });
 
+    app.get('/n2cab', function(req, res){
+
+        let n2cab_file_path = './public/feed/';
+        let n2cab_filename = 'n2cab_lots.db';
+        let n2cab_linepair = req.query.linepair;
+
+        polyN2cab_feed().then(function(poly_n2cab_feed){
+
+            let update_n2cab = [];
+
+            if(n2cab_linepair == 3){
+
+                for(let i=0; i<poly_n2cab_feed.length;i++){
+                    if(poly_n2cab_feed[i].line == 'L21' || poly_n2cab_feed[i].line == 'L22'){
+                        update_n2cab.push({
+                            process: poly_n2cab_feed[i].process,
+                            line: poly_n2cab_feed[i].line,
+                            lot_name: poly_n2cab_feed[i].lot_name,
+                            duration: ((poly_n2cab_feed[i].duration)/60).toFixed(2) + ' hrs.',
+                            color: poly_n2cab_feed[i].color
+                        });
+                    }
+                }
+
+                res.render('n2cab', {update_n2cab});
+
+            }
+            
+
+        }, function(err){
+            res.send({err: err});
+        });
+
+        function polyN2cab_feed(){
+            return new Promise(function(resolve, reject){
+
+                fs.readFile(n2cab_file_path + n2cab_filename, {encoding: 'utf8'}, function(err, data){
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[0] == 'POLY'){
+                                    feed_to_display.push({
+                                        process: feed[0],
+                                        line: feed[1],
+                                        lot_name: feed[2],
+                                        duration: feed[3],
+                                        color: feed[4]
+                                    });
+                                }
+                            }
+                        }
+
+                        resolve(feed_to_display);
+
+                    }
+                });
+
+            });
+        }
+
+    });
+
     app.get('/ost-lot-trace', function(req, res){
         
         let authenticity_token = jwt.sign({
