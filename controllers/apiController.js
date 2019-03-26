@@ -1824,7 +1824,7 @@ module.exports = function(app){
 
                                 } else if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
 
-                                    if(polybaseline_feed[i].tube_minutes > 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
+                                    if(polybaseline_feed[i].tube_minutes < 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
                                         updated_tube.push({
                                             name: polybaseline_json.tube[j].name,
                                             ack_value: 0,
