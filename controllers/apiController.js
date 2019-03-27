@@ -1879,6 +1879,9 @@ module.exports = function(app){
 
                     let updated_tube = [];
 
+                    //console.log(polybaseline_feed);
+                    //console.log(polybaseline_json);
+
                     for(let i=0; i<polybaseline_feed.length;i++){
                         for(let j=0;j<polybaseline_json.tube.length;j++){
                             
@@ -2085,6 +2088,7 @@ module.exports = function(app){
                                         feed_to_display.push({
                                             process: feed[0],
                                             tube: feed[1],
+                                            full_tubename: feed[0] + '_' + feed[1],
                                             palabas: feed[2],
                                             tube_status: feed[3],
                                             tube_color: feed[4] || 0,
@@ -2165,8 +2169,152 @@ module.exports = function(app){
             req.body.Poly_05A,
             req.body.Poly_05B,
             req.body.Poly_05C,
-            req.body.Poly_05D,
+            req.body.Poly_05D
         ]
+
+        let poly_buttons_pressed_2 = [
+            req.body.Poly_06A,
+            req.body.Poly_06B,
+            req.body.Poly_06C,
+            req.body.Poly_06D,
+            req.body.Poly_07A,
+            req.body.Poly_07B,
+            req.body.Poly_07C,
+            req.body.Poly_07D,
+            req.body.Poly_08A,
+            req.body.Poly_08B,
+            req.body.Poly_08C,
+            req.body.Poly_08D,
+            req.body.Poly_09A,
+            req.body.Poly_09B,
+            req.body.Poly_09C,
+            req.body.Poly_09D,
+            req.body.Poly_10A,
+            req.body.Poly_10B,
+            req.body.Poly_10C,
+            req.body.Poly_10D,
+            req.body.Poly_13A,
+            req.body.Poly_13B,
+            req.body.Poly_13C,
+            req.body.Poly_13D,
+            req.body.Poly_17A,
+            req.body.Poly_17B,
+            req.body.Poly_17C,
+            req.body.Poly_17D
+        ]
+
+        let button_pressed = poly_buttons_pressed.filter(function(requested_button){
+            if(typeof requested_button !== 'undefined' && requested_button !== null){
+                return requested_button;
+            }
+        });
+       
+
+        let button_pressed_2 = poly_buttons_pressed_2.filter(function(requested_button){
+            if(typeof requested_button !== 'undefined' && requested_button !== null){
+                return requested_button;
+            }
+        });
+
+        if(button_pressed){
+
+            api_render_acknowledge_button().then(function(polybaseline_json){
+           
+                let polyBaseline_acknowledged = [];
+    
+                for(let i=0;i<polybaseline_json.tube.length;i++){
+    
+                    if(button_pressed == polybaseline_json.tube[i].name){
+    
+                        polyBaseline_acknowledged.push({
+                            name: polybaseline_json.tube[i].name,
+                            ack_value: 1,
+                            date_time: moment(new Date()).format('llll'),
+                            status: "Pressed"
+                        });
+    
+                    } else {
+    
+                        polyBaseline_acknowledged.push({
+                            name: polybaseline_json.tube[i].name,
+                            ack_value: polybaseline_json.tube[i].ack_value,
+                            date_time: polybaseline_json.tube[i].date_time,
+                            status: polybaseline_json.tube[i].status
+                        });
+    
+                    }
+    
+                    let pressed_button_logic = {
+                        tube: polyBaseline_acknowledged
+                    }
+        
+                    // update json file.
+                    fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
+                        if(err){console.log(err)};
+                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(pressed_button_logic), function(err, data){
+                            if(err){console.log(err)};
+                        });
+                    });
+    
+                }
+                
+                res.redirect(backURL);
+    
+            },  function(err){
+                res.send({err: err});
+            });
+
+        }
+
+        if(button_pressed_2){
+
+            api_render_acknowledge_button_2().then(function(polybaseline_json){
+           
+                let polyBaseline_acknowledged = [];
+    
+                for(let i=0;i<polybaseline_json.tube.length;i++){
+    
+                    if(button_pressed_2 == polybaseline_json.tube[i].name){
+    
+                        polyBaseline_acknowledged.push({
+                            name: polybaseline_json.tube[i].name,
+                            ack_value: 1,
+                            date_time: moment(new Date()).format('llll'),
+                            status: "Pressed"
+                        });
+    
+                    } else {
+    
+                        polyBaseline_acknowledged.push({
+                            name: polybaseline_json.tube[i].name,
+                            ack_value: polybaseline_json.tube[i].ack_value,
+                            date_time: polybaseline_json.tube[i].date_time,
+                            status: polybaseline_json.tube[i].status
+                        });
+    
+                    }
+    
+                    let pressed_button_logic = {
+                        tube: polyBaseline_acknowledged
+                    }
+        
+                    // update json file.
+                    fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, '', function(err, data){
+                        if(err){console.log(err)};
+                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, JSON.stringify(pressed_button_logic), function(err, data){
+                            if(err){console.log(err)};
+                        });
+                    });
+    
+                }
+                
+                res.redirect(backURL);
+    
+            },  function(err){
+                res.send({err: err});
+            });
+
+        }
 
         function api_render_acknowledge_button(){
             return new Promise(function(resolve, reject){
@@ -2177,60 +2325,25 @@ module.exports = function(app){
                     let polybaseline_json = JSON.parse(data);
 
                     resolve(polybaseline_json);
+                    
                 });
 
             });
         }
-        
-        api_render_acknowledge_button().then(function(polybaseline_json){
 
-            let polyBaseline_acknowledged = [];
+        function api_render_acknowledge_button_2(){
+            return new Promise(function(resolve, reject){
 
-            for(let i=0;i<poly_buttons_pressed.length;i++){
+                fs.readFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, 'utf8', function(err, data){
+                    if(err){reject(err)};
 
-                if(poly_buttons_pressed[i]){ // is button activated by user?
+                    let polybaseline_json = JSON.parse(data);
 
-                    for(let j=0;j<polybaseline_json.tube.length;j++){
-
-                        if(poly_buttons_pressed[i] == polybaseline_json.tube[j].name){
-
-                            polyBaseline_acknowledged.push({
-                                name: polybaseline_json.tube[j].name,
-                                ack_value: 1,
-                                date_time: moment(new Date()).format('llll'),
-                                status: "Pressed"
-                            });
-
-                        } else {
-
-                            polyBaseline_acknowledged.push({
-                                name: polybaseline_json.tube[j].name,
-                                ack_value: polybaseline_json.tube[j].ack_value,
-                                date_time: polybaseline_json.tube[j].date_time,
-                                status: polybaseline_json.tube[j].status
-                            });
-
-                        }
-
-                    }
-
-                } 
-            }
-
-            let pressed_button_logic = {
-                tube: polyBaseline_acknowledged
-            }
-
-            // update json file.
-            fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
-                if(err){console.log(err)};
-                fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(pressed_button_logic), function(err, data){
-                    if(err){console.log(err)};
+                    resolve(polybaseline_json);
                 });
-            });
 
-            res.redirect(backURL);
-        });
+            });
+        }
 
     });
 
