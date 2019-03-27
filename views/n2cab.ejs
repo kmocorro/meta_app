@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="refresh" content="120">
-    <title>Visual Factory POLY BASELINE | META</title>
+    <title>Visual Factory N2 CABINET | META</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -314,10 +314,16 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <h1>
+                POLY
+                <small>N2 cabinet monitoring</small>
+            </h1>
         </section>
         <!-- Main content -->
         <section class="content">
+            
             <div class="row">
+                
                 <div class="col-md-6">
                     
                     <div class="box box-widget widget-user-2">
@@ -328,11 +334,11 @@
                         <h5 class="widget-user-desc">Hindi pa pwede i-transfer sa WTS (<30 mins) </h5>
                         </div>
                         <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
+                            <ul class="nav nav-stacked" style="font-size: 16px;">
                             <% if(update_n2cab) { %>
                                 <% for(let i=0; i<update_n2cab.length; i++) { %>
                                     <% if(update_n2cab[i].color == 'White') { %>
-                                        <li><a href="#"><%= update_n2cab[i].lot_name %> <span class="pull-right badge bg-blue"><%= update_n2cab[i].duration %></span></a></li>
+                                        <li><a href="#" style="color:gray"><%= update_n2cab[i].lot_name %> <span class="pull-right badge bg-default"><%= update_n2cab[i].duration %></span></a></li>
                                     <% } %>
                                 <% } %>
                             <% } %>
@@ -350,11 +356,11 @@
                         <h5 class="widget-user-desc">Pwede na i-transfer sa WTS (>30 mins)</h5>
                         </div>
                         <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
+                            <ul class="nav nav-stacked" style="font-size: 16px;">
                             <% if(update_n2cab) { %>
                                 <% for(let i=0; i<update_n2cab.length; i++) { %>
                                     <% if(update_n2cab[i].color == 'Green') { %>
-                                        <li><a href="#"><%= update_n2cab[i].lot_name %> <span class="pull-right badge bg-green"><%= update_n2cab[i].duration %></span></a></li>
+                                        <li><a href="#" style="color:gray"><%= update_n2cab[i].lot_name %> <span class="pull-right badge bg-green"><%= update_n2cab[i].duration %></span></a></li>
                                     <% } %>
                                 <% } %>
                             <% } %>
