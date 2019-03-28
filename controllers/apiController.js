@@ -2355,13 +2355,15 @@ module.exports = function(app){
 
         polyN2cab_feed().then(function(poly_n2cab_feed){
 
-            let update_n2cab = [];
+            let set_array = [];
+            
 
             if(n2cab_linepair == 3){
 
                 for(let i=0; i<poly_n2cab_feed.length;i++){
                     if(poly_n2cab_feed[i].line == 'L21' || poly_n2cab_feed[i].line == 'L22'){
-                        update_n2cab.push({
+
+                        set_array.push({
                             process: poly_n2cab_feed[i].process,
                             line: poly_n2cab_feed[i].line,
                             lot_name: poly_n2cab_feed[i].lot_name,
@@ -2371,6 +2373,8 @@ module.exports = function(app){
                     }
                 }
 
+                let update_n2cab = [...new Set(set_array)]; // remove dups using spread syntax and Set
+                //console.log(update_n2cab);
                 res.render('n2cab', {update_n2cab});
 
             }
