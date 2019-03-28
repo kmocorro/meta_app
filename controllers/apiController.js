@@ -1791,14 +1791,14 @@ module.exports = function(app){
                                         if(polybaseline_feed[i].tube_minutes > 100){
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
+                                                ack_value: 1, // if it's gray already. then auto close it.
                                                 date_time: moment(new Date()).format('llll'),
                                                 status: 'Reset'
                                             });
                                         } else {
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
+                                                ack_value: 1, // if it's gray already. then auto close it.
                                                 date_time: polybaseline_json.tube[j].date_time,
                                                 status: polybaseline_json.tube[j].status
                                             });
@@ -1896,14 +1896,14 @@ module.exports = function(app){
                                         if(polybaseline_feed[i].tube_minutes > 100){
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
+                                                ack_value: 1, // if it's gray already. then auto close it.
                                                 date_time: moment(new Date()).format('llll'),
                                                 status: 'Reset'
                                             });
                                         } else {
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
+                                                ack_value: 1, // if it's gray already. then auto close it.
                                                 date_time: polybaseline_json.tube[j].date_time,
                                                 status: polybaseline_json.tube[j].status
                                             });
@@ -2094,6 +2094,7 @@ module.exports = function(app){
                                             tube_color: feed[4] || 0,
                                             tube_color_2: feed[5],
                                             tube_message: feed[6],
+                                            tube_minutes: feed[8],
                                             line_pair: feed[9],
                                             sequence: feed[10]
                                         });
@@ -2216,7 +2217,7 @@ module.exports = function(app){
             }
         });
 
-        if(button_pressed){
+        if(button_pressed){ // line paired 1
 
             api_render_acknowledge_button().then(function(polybaseline_json){
            
@@ -2266,7 +2267,7 @@ module.exports = function(app){
 
         }
 
-        if(button_pressed_2){
+        if(button_pressed_2){ // line paired 2
 
             api_render_acknowledge_button_2().then(function(polybaseline_json){
            
