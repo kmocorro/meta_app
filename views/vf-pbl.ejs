@@ -319,10 +319,10 @@
         <section class="content">
             <div class="row">
                 <% if(polybaseline_feed) { %>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                     <% for(let i=0;i<polybaseline_feed.length; i++) { %>
                         <% if(polybaseline_feed[i].tube_color !== "bg-yellow") { %>
-                            <div class="col-md-2 box-5-fit">
+                            <div class="col-md-3 box-4-fit">
                                 <div class="info-box <%= polybaseline_feed[i].tube_color %>"> <!--colorfrontwip-->
                                     <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
                                         <%= polybaseline_feed[i].sequence %>
@@ -368,7 +368,7 @@
                             </div>
 
                         <% } else { %>
-                            <div class="col-md-2 box-5-fit">
+                            <div class="col-md-3 box-4-fit">
                                 <div class="info-box" style="background-color: #ffff33;"> <!--colorfrontwip-->
                                     <span class="info-box-icon" style="height: 57px; width: 50px; line-height: 60px; font-size: 30px;">
                                        <%= polybaseline_feed[i].sequence %>
@@ -416,7 +416,7 @@
                         
                     <% } %>
                     </div>
-                    <div class="col-lg-2 col-xs-6">
+                    <div class="col-lg-3 col-xs-12">
                         <!-- small box -->
                         <div class="box">
                             <div class="box-header with-border">
