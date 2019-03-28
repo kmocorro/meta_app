@@ -2574,6 +2574,13 @@ module.exports = function(app){
         res.render('test_monitor_3');
     });
 
+    app.get('/plf-monitoring-1', function(req, res){
+        res.render('plf_monitoring_1');
+    });
+    app.get('/plf-monitoring-2', function(req, res){
+        res.render('plf_monitoring_2');
+    });
+
     app.post('/api/hourly', function(req, res){
         let form = new formidable.IncomingForm();
 
