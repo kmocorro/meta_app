@@ -1762,6 +1762,9 @@ module.exports = function(app){
 
         let vf_ph_filename = 'Poly.Baseline.csv';
         let vf_ph_path = './public/feed/';
+
+        let vf_filename = 'Cluster1.VF.csv';
+        let vf_path = './public/feed/';
         
         let vf_pbl_polybaseline_path = './public/acknowledge/';
         let vf_pbl_polybaseline_filename = 'polyBaseline.json';
@@ -1876,98 +1879,100 @@ module.exports = function(app){
 
             polyBaseline_feed_linePair_2().then(function(polybaseline_feed){
                 return render_acknowledge_button_2().then(function(polybaseline_json){
+                    return cluster1_vf_poly_feed().then(function(poly_feed){
+                        let updated_tube = [];
 
-                    let updated_tube = [];
-
-                    //console.log(polybaseline_feed);
-                    //console.log(polybaseline_json);
-
-                    for(let i=0; i<polybaseline_feed.length;i++){
-                        for(let j=0;j<polybaseline_json.tube.length;j++){
-                            
-                            if(polybaseline_feed[i].full_tubename == polybaseline_json.tube[j].name){
-
-                                // check color first. feed
-                                if(polybaseline_feed[i].tube_color == 'bg-gray'){
-                                    
-                                    // check if button inactive/active. json
-                                    if(polybaseline_json.tube[j].ack_value == 0){
-
-                                        if(polybaseline_feed[i].tube_minutes > 100){
+                        //console.log(polybaseline_feed);
+                        //console.log(polybaseline_json);
+    
+                        for(let i=0; i<polybaseline_feed.length;i++){
+                            for(let j=0;j<polybaseline_json.tube.length;j++){
+                                
+                                if(polybaseline_feed[i].full_tubename == polybaseline_json.tube[j].name){
+    
+                                    // check color first. feed
+                                    if(polybaseline_feed[i].tube_color == 'bg-gray'){
+                                        
+                                        // check if button inactive/active. json
+                                        if(polybaseline_json.tube[j].ack_value == 0){
+    
+                                            if(polybaseline_feed[i].tube_minutes > 100){
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: 1, // if it's gray already. then auto close it.
+                                                    date_time: moment(new Date()).format('llll'),
+                                                    status: 'Reset'
+                                                });
+                                            } else {
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: 1, // if it's gray already. then auto close it.
+                                                    date_time: polybaseline_json.tube[j].date_time,
+                                                    status: polybaseline_json.tube[j].status
+                                                });
+                                            }
+                                            
+                                        } else if(polybaseline_json.tube[j].ack_value == 1) {
+    
+                                            if(polybaseline_feed[i].tube_minutes > 100){
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: polybaseline_json.tube[j].ack_value,
+                                                    date_time: moment(new Date()).format('llll'),
+                                                    status: 'Reset'
+                                                });
+                                            } else {
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: polybaseline_json.tube[j].ack_value,
+                                                    date_time: polybaseline_json.tube[j].date_time,
+                                                    status: polybaseline_json.tube[j].status
+                                                });
+                                            }
+                                            
+                                        }
+    
+                                    } else if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
+    
+                                        if(polybaseline_feed[i].tube_minutes < 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: 1, // if it's gray already. then auto close it.
+                                                ack_value: 0,
                                                 date_time: moment(new Date()).format('llll'),
                                                 status: 'Reset'
                                             });
                                         } else {
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: 1, // if it's gray already. then auto close it.
-                                                date_time: polybaseline_json.tube[j].date_time,
-                                                status: polybaseline_json.tube[j].status
-                                            });
-                                        }
-                                        
-                                    } else if(polybaseline_json.tube[j].ack_value == 1) {
-
-                                        if(polybaseline_feed[i].tube_minutes > 100){
-                                            updated_tube.push({
-                                                name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
-                                                date_time: moment(new Date()).format('llll'),
-                                                status: 'Reset'
-                                            });
-                                        } else {
-                                            updated_tube.push({
-                                                name: polybaseline_json.tube[j].name,
                                                 ack_value: polybaseline_json.tube[j].ack_value,
                                                 date_time: polybaseline_json.tube[j].date_time,
                                                 status: polybaseline_json.tube[j].status
                                             });
                                         }
-                                        
+    
                                     }
-
-                                } else if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
-
-                                    if(polybaseline_feed[i].tube_minutes < 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
-                                        updated_tube.push({
-                                            name: polybaseline_json.tube[j].name,
-                                            ack_value: 0,
-                                            date_time: moment(new Date()).format('llll'),
-                                            status: 'Reset'
-                                        });
-                                    } else {
-                                        updated_tube.push({
-                                            name: polybaseline_json.tube[j].name,
-                                            ack_value: polybaseline_json.tube[j].ack_value,
-                                            date_time: polybaseline_json.tube[j].date_time,
-                                            status: polybaseline_json.tube[j].status
-                                        });
-                                    }
-
+    
                                 }
-
                             }
                         }
-                    }
-
-                    let acknowledge_button_logic = {
-                        tube: updated_tube
-                    }
-
-                    // update json file.
-                    fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, '', function(err, data){
-                        if(err){console.log(err)};
-                        
-                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, JSON.stringify(acknowledge_button_logic), function(err, data){
+    
+                        let acknowledge_button_logic = {
+                            tube: updated_tube
+                        }
+    
+                        // update json file.
+                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, '', function(err, data){
                             if(err){console.log(err)};
-
-                            res.render('vf-pbl', {polybaseline_feed, acknowledge_button_logic});
+                            
+                            fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename_2, JSON.stringify(acknowledge_button_logic), function(err, data){
+                                if(err){console.log(err)};
+    
+                                res.render('vf-pbl', {polybaseline_feed, acknowledge_button_logic, poly_feed});
+                            });
                         });
+    
                     });
-
+                    
                     
 
                 });
@@ -2138,6 +2143,55 @@ module.exports = function(app){
 
             });
         }
+
+        function cluster1_vf_poly_feed(){
+            return new Promise(function(resolve, reject){
+                fs.readFile(vf_path + vf_filename, 'utf8', function(err, data){
+
+                    if(err){return reject(err)};
+
+                    if(data){
+                        let arr_data = data.split('\n');
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length;i++){
+                            if(arr_data[i]){
+                                let feed = arr_data[i].split(',');
+
+                                if(feed[1] == 'POLY'){
+                                    feed_to_display.push({
+                                        cluster: feed[0],
+                                        info: feed[1],
+                                        tooltotal: feed[2],
+                                        toolprod: feed[3],
+                                        tooldown: feed[4] || 0,
+                                        stepcapacity: feed[5],
+                                        totalwip: feed[6],
+                                        trolley: (feed[7] / 500 || 0).toFixed(0),
+                                        frontingwip: feed[7],
+                                        wipinside: feed[8],
+                                        colorfrontwip: feed[9],
+                                        colorfrontfg: feed[10],
+                                        queuetime: feed[11],
+                                        colorqueuetime: feed[12],
+                                        tool: feed[13],
+                                        tooldownmessage: feed[14],
+                                        oee_value: feed[15],
+                                        oee_target: feed[16],
+                                    });
+                                }
+                            }
+
+                        }
+
+                        resolve(feed_to_display);
+
+                    }
+                });
+            });
+        }
+
+        
 
     });
 

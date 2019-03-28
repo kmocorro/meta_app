@@ -416,6 +416,50 @@
                         
                     <% } %>
                     </div>
+                    <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <% if(poly_feed[0] !== '' || poly_feed[0] !== 'undefind') { %> 
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3><%= poly_feed[0].trolley %></h3>
+                            <p>POLY Trolleys</p>
+                            </div>
+                            <div class="icon">
+                            <i class="fa fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                        <% if(poly_feed[0].colorfrontwip == 'bg-red') { %>
+                        <div class="small-box <%= poly_feed[0].colorfrontwip %>">
+                            <div class="inner">
+                                <h3><%= poly_feed[0].totalwip %></h3>
+                            <p>POLY Total WIP</p>
+                            </div>
+                            <div class="icon">
+                            <i class="fa fa-warning"></i>
+                            </div>
+                        </div>
+                        <% } else { %>
+                        <div class="small-box <%= poly_feed[0].colorfrontwip %>">
+                            <div class="inner">
+                                <h3><%= poly_feed[0].totalwip %></h3>
+                            <p>POLY Total WIP</p>
+                            </div>
+                            <div class="icon">
+                            <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                        <% } %>
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3><%= poly_feed[0].toolprod %> / <%= poly_feed[0].tooltotal %></h3>
+                            <p>POLY tubes in production</p>
+                            </div>
+                            <div class="icon">
+                            <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    <% } %>
+                    </div>
                 <% } %>
             </div>
             <!-- Cluster Groups -->
