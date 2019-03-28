@@ -417,48 +417,62 @@
                     <% } %>
                     </div>
                     <div class="col-lg-2 col-xs-6">
-                    <!-- small box -->
-                    <% if(poly_feed[0] !== '' || typeof poly_feed[0] !== 'undefind') { %> 
-                        <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <h3><%= poly_feed[0].trolley %></h3>
-                            <p>POLY Trolleys</p>
+                        <!-- small box -->
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">POLY Health</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="icon">
-                            <i class="fa fa-shopping-cart"></i>
+                            <div class="box-body">
+                                <% if(poly_feed[0] !== '' || typeof poly_feed[0] !== 'undefind') { %> 
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3><%= poly_feed[0].trolley %></h3>
+                                        <p>POLY Trolleys</p>
+                                        </div>
+                                        <div class="icon">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        </div>
+                                    </div>
+                                    <% if(poly_feed[0].colorfrontwip == 'bg-red') { %>
+                                    <div class="small-box <%= poly_feed[0].colorfrontwip %>">
+                                        <div class="inner">
+                                            <h3><%= poly_feed[0].totalwip %></h3>
+                                        <p>POLY Total WIP</p>
+                                        </div>
+                                        <div class="icon">
+                                        <i class="fa fa-warning"></i>
+                                        </div>
+                                    </div>
+                                    <% } else { %>
+                                    <div class="small-box <%= poly_feed[0].colorfrontwip %>">
+                                        <div class="inner">
+                                            <h3><%= poly_feed[0].totalwip %></h3>
+                                        <p>POLY Total WIP</p>
+                                        </div>
+                                        <div class="icon">
+                                        <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <h3><%= poly_feed[0].toolprod %> / <%= poly_feed[0].tooltotal %></h3>
+                                        <p>POLY tubes in production</p>
+                                        </div>
+                                        <div class="icon">
+                                        <i class="fa fa-check"></i>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <p class="text-muted"></p>
                             </div>
                         </div>
-                        <% if(poly_feed[0].colorfrontwip == 'bg-red') { %>
-                        <div class="small-box <%= poly_feed[0].colorfrontwip %>">
-                            <div class="inner">
-                                <h3><%= poly_feed[0].totalwip %></h3>
-                            <p>POLY Total WIP</p>
-                            </div>
-                            <div class="icon">
-                            <i class="fa fa-warning"></i>
-                            </div>
-                        </div>
-                        <% } else { %>
-                        <div class="small-box <%= poly_feed[0].colorfrontwip %>">
-                            <div class="inner">
-                                <h3><%= poly_feed[0].totalwip %></h3>
-                            <p>POLY Total WIP</p>
-                            </div>
-                            <div class="icon">
-                            <i class="fa fa-check"></i>
-                            </div>
-                        </div>
-                        <% } %>
-                        <div class="small-box bg-green">
-                            <div class="inner">
-                                <h3><%= poly_feed[0].toolprod %> / <%= poly_feed[0].tooltotal %></h3>
-                            <p>POLY tubes in production</p>
-                            </div>
-                            <div class="icon">
-                            <i class="fa fa-check"></i>
-                            </div>
-                        </div>
-                    <% } %>
                     </div>
                 <% } %>
             </div>
