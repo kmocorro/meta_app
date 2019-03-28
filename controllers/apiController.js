@@ -1777,94 +1777,96 @@ module.exports = function(app){
 
             polyBaseline_feed_linePair_1().then(function(polybaseline_feed){
                 return render_acknowledge_button().then(function(polybaseline_json){
+                    return cluster1_vf_poly_feed().then(function(poly_feed){
+                        let updated_tube = [];
 
-                    let updated_tube = [];
-
-                    for(let i=0; i<polybaseline_feed.length;i++){
-                        for(let j=0;j<polybaseline_json.tube.length;j++){
-                            
-                            if(polybaseline_feed[i].full_tubename == polybaseline_json.tube[j].name){
-
-                                // check color first. feed
-                                if(polybaseline_feed[i].tube_color == 'bg-gray'){
-                                    
-                                    // check if button inactive/active. json
-                                    if(polybaseline_json.tube[j].ack_value == 0){
-
-                                        if(polybaseline_feed[i].tube_minutes > 100){
+                        for(let i=0; i<polybaseline_feed.length;i++){
+                            for(let j=0;j<polybaseline_json.tube.length;j++){
+                                
+                                if(polybaseline_feed[i].full_tubename == polybaseline_json.tube[j].name){
+    
+                                    // check color first. feed
+                                    if(polybaseline_feed[i].tube_color == 'bg-gray'){
+                                        
+                                        // check if button inactive/active. json
+                                        if(polybaseline_json.tube[j].ack_value == 0){
+    
+                                            if(polybaseline_feed[i].tube_minutes > 100){
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: 1, // if it's gray already. then auto close it.
+                                                    date_time: moment(new Date()).format('llll'),
+                                                    status: 'Reset'
+                                                });
+                                            } else {
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: 1, // if it's gray already. then auto close it.
+                                                    date_time: polybaseline_json.tube[j].date_time,
+                                                    status: polybaseline_json.tube[j].status
+                                                });
+                                            }
+                                            
+                                        } else if(polybaseline_json.tube[j].ack_value == 1) {
+    
+                                            if(polybaseline_feed[i].tube_minutes > 100){
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: polybaseline_json.tube[j].ack_value,
+                                                    date_time: moment(new Date()).format('llll'),
+                                                    status: 'Reset'
+                                                });
+                                            } else {
+                                                updated_tube.push({
+                                                    name: polybaseline_json.tube[j].name,
+                                                    ack_value: polybaseline_json.tube[j].ack_value,
+                                                    date_time: polybaseline_json.tube[j].date_time,
+                                                    status: polybaseline_json.tube[j].status
+                                                });
+                                            }
+                                            
+                                        }
+    
+                                    } else if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
+    
+                                        if(polybaseline_feed[i].tube_minutes < 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: 1, // if it's gray already. then auto close it.
+                                                ack_value: 0,
                                                 date_time: moment(new Date()).format('llll'),
                                                 status: 'Reset'
                                             });
                                         } else {
                                             updated_tube.push({
                                                 name: polybaseline_json.tube[j].name,
-                                                ack_value: 1, // if it's gray already. then auto close it.
-                                                date_time: polybaseline_json.tube[j].date_time,
-                                                status: polybaseline_json.tube[j].status
-                                            });
-                                        }
-                                        
-                                    } else if(polybaseline_json.tube[j].ack_value == 1) {
-
-                                        if(polybaseline_feed[i].tube_minutes > 100){
-                                            updated_tube.push({
-                                                name: polybaseline_json.tube[j].name,
-                                                ack_value: polybaseline_json.tube[j].ack_value,
-                                                date_time: moment(new Date()).format('llll'),
-                                                status: 'Reset'
-                                            });
-                                        } else {
-                                            updated_tube.push({
-                                                name: polybaseline_json.tube[j].name,
                                                 ack_value: polybaseline_json.tube[j].ack_value,
                                                 date_time: polybaseline_json.tube[j].date_time,
                                                 status: polybaseline_json.tube[j].status
                                             });
                                         }
-                                        
+    
                                     }
-
-                                } else if(polybaseline_feed[i].tube_color == 'bg-yellow' || polybaseline_feed[i].tube_color == 'bg-green') {
-
-                                    if(polybaseline_feed[i].tube_minutes < 100 && polybaseline_json.tube[j].ack_value !== 0 && polybaseline_json.tube[j].status == 'Reset'){
-                                        updated_tube.push({
-                                            name: polybaseline_json.tube[j].name,
-                                            ack_value: 0,
-                                            date_time: moment(new Date()).format('llll'),
-                                            status: 'Reset'
-                                        });
-                                    } else {
-                                        updated_tube.push({
-                                            name: polybaseline_json.tube[j].name,
-                                            ack_value: polybaseline_json.tube[j].ack_value,
-                                            date_time: polybaseline_json.tube[j].date_time,
-                                            status: polybaseline_json.tube[j].status
-                                        });
-                                    }
-
+    
                                 }
-
                             }
                         }
-                    }
-
-                    let acknowledge_button_logic = {
-                        tube: updated_tube
-                    }
-
-                    // update json file.
-                    fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
-                        if(err){console.log(err)};
-                        
-                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(acknowledge_button_logic), function(err, data){
+    
+                        let acknowledge_button_logic = {
+                            tube: updated_tube
+                        }
+    
+                        // update json file.
+                        fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, '', function(err, data){
                             if(err){console.log(err)};
-
-                            res.render('vf-pbl', {polybaseline_feed, acknowledge_button_logic});
+                            
+                            fs.writeFile(vf_pbl_polybaseline_path + vf_pbl_polybaseline_filename, JSON.stringify(acknowledge_button_logic), function(err, data){
+                                if(err){console.log(err)};
+    
+                                res.render('vf-pbl', {polybaseline_feed, acknowledge_button_logic, poly_feed});
+                            });
                         });
                     });
+                    
 
                     
 

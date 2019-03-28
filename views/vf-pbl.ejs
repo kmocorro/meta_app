@@ -418,7 +418,7 @@
                     </div>
                     <div class="col-lg-2 col-xs-6">
                     <!-- small box -->
-                    <% if(poly_feed[0] !== '' || poly_feed[0] !== 'undefind') { %> 
+                    <% if(poly_feed[0] !== '' || typeof poly_feed[0] !== 'undefind') { %> 
                         <div class="small-box bg-aqua">
                             <div class="inner">
                                 <h3><%= poly_feed[0].trolley %></h3>
