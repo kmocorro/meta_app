@@ -2629,6 +2629,10 @@ module.exports = function(app){
     app.get('/test-monitor-3', function(req, res){
         res.render('test_monitor_3');
     });
+    
+    app.get('/fab3_monitor1', function(req, res){
+        res.render('fab3_monitor1');
+    });
 
     app.get('/plf-monitoring-1', function(req, res){
         res.render('plf_monitoring_1');
