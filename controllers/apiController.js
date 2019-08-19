@@ -2633,6 +2633,10 @@ module.exports = function(app){
     app.get('/fab3_monitor1', function(req, res){
         res.render('fab3_monitor1');
     });
+    
+    app.get('/fab3_monitor2', function(req, res){
+        res.render('fab3_monitor2');
+    });
 
     app.get('/plf-monitoring-1', function(req, res){
         res.render('plf_monitoring_1');
