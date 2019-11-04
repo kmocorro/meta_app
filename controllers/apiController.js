@@ -652,6 +652,7 @@ module.exports = function(app){
         }
 
         let lot_list_path = './public/feed/file_lots.db';
+        let queue_list_path = './public/feed/queue_list.csv';
         
         function read_lot_list(){
             return new Promise(function(resolve, reject){
@@ -734,6 +735,54 @@ module.exports = function(app){
             });
         }
 
+        function read_queue_list(){
+            return new Promise((resolve, reject) => {
+
+                fs.readFile(queue_list_path, {encoding: 'utf8'}, function(err, data){
+
+                    if(err){return reject(err)};
+
+                    if(data){
+
+                        let feed_to_display = [];
+
+                        for(let i=0; i<arr_data.length; i++){ 
+                            let feed_bods = arr_data[i].split(',');
+                            
+                            if(arr_data[i]){
+
+                                for(let j=0; j<metaData.process.length; j++){
+
+                                    feed_to_display.push({
+                                        process: feed_bods[0],
+                                        lot_name: feed_bods[1],
+                                        duration: feed_bods[2]
+                                    });
+
+                                    // sort :D highest to lowesssst
+                                    feed_to_display.sort(function(a, b) {
+                                        return b.duration - a.duration;
+                                    });
+                                }
+
+                            }
+                            
+                        }
+
+                        resolve({feed_queue: feed_to_display});
+                        
+
+                    } else {
+
+
+                    }
+
+                })
+                
+
+            })
+        }
+
         if(query.type == 'aging'){
 
             read_lot_list().then(function(toGo){
@@ -750,6 +799,14 @@ module.exports = function(app){
             }, function(err){
                 console.log(err);
             });
+
+        } else if(query.type == 'queue'){
+            
+            read_queue_list().then((feed) => {
+                let feed_queue = feed.feed_queue;
+
+                res.render('lot', {feed_queue});
+            })
 
         } else {
 

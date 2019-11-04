@@ -396,7 +396,39 @@
                                     <% } %>
                                 <% } %>
                             <% } else { %>
-                                
+                                <% for(let i=0; i<feed_queue.length; i++) { %>
+                                    <% if(metaData.process[k].to == feed_queue[i].process) { %>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="direct-chat-msg">
+                                                    <div class="direct-chat-info clearfix">
+                                                        <span class="direct-chat-name pull-left">
+                                                            <!--<span class="ion ion-ios-pricetag feed-activity-alert"></span>--><%= feed_queue[i].lot_name %>
+                                                        </span>
+                                                        <% if( feed_queue[i].duration >= 31  { %>
+                                                        <span class="text-red direct-chat-timestamp pull-right">
+                                                            <%= feed_queue[i].duration %> mins.
+                                                        </span>
+                                                        <% } else { %>
+                                                        <span class="text-gray direct-chat-timestamp pull-right">
+                                                            <%= feed_queue[i].duration %> mins.
+                                                        </span>
+                                                        <% } %>
+                                                    </div>
+                                                    <!--
+                                                    <div class="direct-chat-img">
+                                                        <span class="ion ion-ios-pulse size-34"></span>
+                                                    </div>
+                                                    
+                                                    <div class="direct-chat-text mrl-text">
+                                                    </div>
+                                                    -->
+                                                    <hr class="hr-class"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
                             <% } %>
                         </div>
                         <div class="box-footer with-border">
