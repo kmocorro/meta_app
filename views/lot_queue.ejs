@@ -360,24 +360,23 @@
                             </div>
                         </div>
                         <div class="box-body lot-dash"> <!-- -->
-                            <% if(feed) { %> 
-                                <% for(let i=0; i<feed.length; i++) { %>
-                                    <% if(metaData.process[k].to == feed[i].to_process_id) { %>
+                            <% if(feed_queue) { %>
+                                <% for(let i=0; i<feed_queue.length; i++) { %>
+                                    <% if(feed_queue[i].process) { %>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="direct-chat-msg">
                                                     <div class="direct-chat-info clearfix">
                                                         <span class="direct-chat-name pull-left">
-                                                            <!--<span class="ion ion-ios-pricetag feed-activity-alert"></span>-->
-                                                            <a href="/perlot?name=<%= feed[i].lot_name %>" target="_blank"><%= feed[i].lot_name %></a>
+                                                            <!--<span class="ion ion-ios-pricetag feed-activity-alert"></span>--><%= feed_queue[i].lot_name %>
                                                         </span>
-                                                        <% if(metaData.process[k].limit <= Math.round(((feed[i].duration)/3600)* 100)/100) { %>
+                                                        <% if( feed_queue[i].duration >= 31 )  { %>
                                                         <span class="text-red direct-chat-timestamp pull-right">
-                                                            <%= Math.round(((feed[i].duration)/3600)* 100)/100  %>
+                                                            <%= feed_queue[i].duration %> mins.
                                                         </span>
                                                         <% } else { %>
                                                         <span class="text-gray direct-chat-timestamp pull-right">
-                                                            <%= Math.round(((feed[i].duration)/3600)* 100)/100  %>
+                                                            <%= feed_queue[i].duration %> mins.
                                                         </span>
                                                         <% } %>
                                                     </div>

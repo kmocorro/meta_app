@@ -806,7 +806,7 @@ module.exports = function(app){
             read_queue_list().then((feed) => {
                 let feed_queue = feed.feed_queue;
 
-                res.render('lot', {feed_queue, metaData});
+                res.render('lot_queue', {feed_queue, metaData});
             })
 
         } else {
