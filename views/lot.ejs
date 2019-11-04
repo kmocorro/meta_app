@@ -360,7 +360,7 @@
                             </div>
                         </div>
                         <div class="box-body lot-dash"> <!-- -->
-                            <% if(feed) { %> 
+                            <% if(feed[0] !== 'undefined') { %> 
                                 <% for(let i=0; i<feed.length; i++) { %>
                                     <% if(metaData.process[k].to == feed[i].to_process_id) { %>
                                         <div class="row">
@@ -395,7 +395,7 @@
                                         </div>
                                     <% } %>
                                 <% } %>
-                            <% } else { %>
+                            <% } else if(feed_queue[0] !== 'undefined') { %>
                                 <% for(let i=0; i<feed_queue.length; i++) { %>
                                     <% if(feed_queue[i].process) { %>
                                         <div class="row">
