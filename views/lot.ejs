@@ -397,7 +397,7 @@
                                 <% } %>
                             <% } else { %>
                                 <% for(let i=0; i<feed_queue.length; i++) { %>
-                                    <% if(metaData.process[k].to == feed_queue[i].process) { %>
+                                    <% if(feed_queue[i].process) { %>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="direct-chat-msg">
