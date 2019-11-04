@@ -759,6 +759,8 @@ module.exports = function(app){
 
                         for(let i=0; i<arr_data.length; i++){ 
                             let feed_bods = arr_data[i].split(',');
+
+                            console.log(feed_bods);
                             
                             if(arr_data[i]){
 
