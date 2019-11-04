@@ -765,16 +765,21 @@ module.exports = function(app){
 
                                 for(let j=0; j<metaData.process.length; j++){
 
-                                    feed_to_display.push({
-                                        process: feed_bods[0],
-                                        lot_name: feed_bods[1],
-                                        duration: feed_bods[2]
-                                    });
+                                    if(feed_bods[0] == metaData.process[j].name){
 
-                                    // sort :D highest to lowesssst
-                                    feed_to_display.sort(function(a, b) {
-                                        return b.duration - a.duration;
-                                    });
+                                        feed_to_display.push({
+                                            process: feed_bods[0],
+                                            lot_name: feed_bods[1],
+                                            duration: feed_bods[2]
+                                        });
+    
+                                        // sort :D highest to lowesssst
+                                        feed_to_display.sort(function(a, b) {
+                                            return b.duration - a.duration;
+                                        });
+
+                                    }
+
                                 }
 
                             }
