@@ -745,6 +745,7 @@ module.exports = function(app){
                     if(data){
 
                         let feed_to_display = [];
+                        let arr_data = (data.split('\n')).reverse();
 
                         for(let i=0; i<arr_data.length; i++){ 
                             let feed_bods = arr_data[i].split(',');
