@@ -651,6 +651,16 @@ module.exports = function(app){
             }]
         }
 
+        let metaData_queue = {
+            process: [{
+                name: "DAMAGE", limit: 30
+            },{
+                name: "NOXE", limit: 30
+            },{
+                name: "CLEANTEX", limit: 30
+            }]
+        }
+
         let lot_list_path = './public/feed/file_lots.db';
         let queue_list_path = './public/feed/queue_list.csv';
         
@@ -806,7 +816,7 @@ module.exports = function(app){
             read_queue_list().then((feed) => {
                 let feed_queue = feed.feed_queue;
 
-                res.render('lot_queue', {feed_queue, metaData});
+                res.render('lot_queue', {feed_queue, metaData_queue});
             })
 
         } else {

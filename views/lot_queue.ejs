@@ -347,12 +347,12 @@
             </div>
             -->
             <div class="row">
-                <% for(let k=0;k<metaData.process.length;k++) { %>
-                <% if(metaData.process[k].to) { %>
+                <% for(let k=0;k<metaData_queue.process.length;k++) { %>
+                <% if(metaData_queue.process[k].name) { %>
                 <div class="col-md-3">
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><%= metaData.process[k].to %></h3> 
+                            <h3 class="box-title"><%= metaData_queue.process[k].name %></h3> 
                             
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -362,7 +362,7 @@
                         <div class="box-body lot-dash"> <!-- -->
                             <% if(feed_queue) { %>
                                 <% for(let i=0; i<feed_queue.length; i++) { %>
-                                    <% if(feed_queue[i].process) { %>
+                                    <% if(metaData_queue.process[k].name ==  feed_queue[i].process) { %>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="direct-chat-msg">
