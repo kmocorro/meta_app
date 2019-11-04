@@ -786,7 +786,7 @@ module.exports = function(app){
                             
                         }
 
-                        console.log({feed_queue: feed_to_display});
+                        //console.log({feed_queue: feed_to_display});
 
                         resolve({feed_queue: feed_to_display});
                         
