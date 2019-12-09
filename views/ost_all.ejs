@@ -954,6 +954,17 @@
     $(function(){
         var alarm = new Audio('arlam.mp3');
         //alarm.play();
+        
+        <% for(let i=0;i<main_dashboard.length;i++){ %>
+            <% if(main_dashboard[i].feed) { %>
+                <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
+                    <% if((main_dashboard[i].feed[j].msg4).charAt(0) == '#ff') { %>
+                        console.log('playing musiccc...ALARM!')
+                        break;
+                    <% } %>
+                <% } %>    
+            <% } %>
+        <% } %>
     })
 </script>
 </body>
