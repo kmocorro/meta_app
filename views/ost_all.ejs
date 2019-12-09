@@ -961,7 +961,7 @@
                     <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
                         <% if((main_dashboard[i].feed[j].msg4).substring(0, 3) == '#ff') { %>
                             console.log('playing musiccc...ALARM!')
-                            break;
+                            return;
                         <% } %>
                     <% } %>    
                 <% } %>
