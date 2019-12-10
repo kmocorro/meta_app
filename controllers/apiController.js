@@ -1309,7 +1309,7 @@ module.exports = function(app){
         
                                         let djv_avg = sum/5; // ost 1-5 ave
                                         
-                                        resolve(djv_avg.toFixed(3));
+                                        resolve(djv_avg.toFixed(0));
 
                                     });
                                 }
