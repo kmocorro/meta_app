@@ -1257,7 +1257,7 @@ module.exports = function(app){
                                     efficiency: 25.000,
                                     binning: 65.00,
                                     cosmetics: 92,
-                                    djv: -0.12
+                                    djv: 4000
                                 }
 
                                 main_dashboard.push(
