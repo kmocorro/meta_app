@@ -954,14 +954,25 @@
     async function CallForAlarm(){
         await $(function(){
             var alarm = new Audio('alret.mp3');
+            var JoanAlarm = new Audio('Joan.m4a');
+            var SakiAlarm = new Audio('Saki.m4a');
+            var NeonAlarm = new Audio('Neon.m4a');
             //alarm.play();
             
             <% for(let i=0;i<main_dashboard.length;i++){ %>
                 <% if(main_dashboard[i].feed) { %>
                     <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
-                        <% if((main_dashboard[i].feed[j].msg4).substring(0, 3) == '#ff') { %>
-                            console.log('playing musiccc...ALARM!')
-                            alarm.play();
+                        <% if((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0000') { %>
+                            console.log('playing Joan alert...')
+                            JoanAlarm.play();
+                            return;
+                        <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0002') { %>
+                            console.log('playing Saki alert...')
+                            SakiAlarm.play();
+                            return;
+                        <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0001' || (main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff8001') { %>
+                            console.log('playing Neon alert...')
+                            NeonAlarm.play();
                             return;
                         <% } %>
                     <% } %>    
