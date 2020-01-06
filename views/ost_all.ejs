@@ -956,140 +956,114 @@
             var JoanAlarm = new Audio('Joan.m4a');
             var SakiAlarm = new Audio('Saki.m4a');
             var NeonAlarm = new Audio('Neon.m4a');
-            var HSTF_OST1 = new Audio('HSTFOST1.m3a');
-            var HSTF_OST2 = new Audio('HSTFOST2.m3a');
-            var HSTF_OST3 = new Audio('HSTFOST3.m3a');
-            var HSTF_OST4 = new Audio('HSTFOST4.m3a');
-            var HSTF_OST5 = new Audio('HSTFOST5.m3a');
-            var IVTF_OST1 = new Audio('IVTFOST1.m3a');
-            var IVTF_OST2 = new Audio('IVTFOST2.m3a');
-            var IVTF_OST3 = new Audio('IVTFOST3.m3a');
-            var IVTF_OST4 = new Audio('IVTFOST4.m3a');
-            var IVTF_OST5 = new Audio('IVTFOST5.m3a');
-            var PLF_OST1 = new Audio('PLFOST1.m3a');
-            var PLF_OST2 = new Audio('PLFOST2.m3a');
-            var PLF_OST3 = new Audio('PLFOST3.m3a');
-            var PLF_OST4 = new Audio('PLFOST4.m3a');
-            var PLF_OST5 = new Audio('PLFOST5.m3a');
-            var WARN1_OST1 = new Audio('WARN1OST1.m3a');
-            var WARN1_OST2 = new Audio('WARN1OST2.m3a');
-            var WARN1_OST3 = new Audio('WARN1OST3.m3a');
-            var WARN1_OST4 = new Audio('WARN1OST4.m3a');
-            var WARN1_OST5 = new Audio('WARN1OST5.m3a');
-            var WARN2_OST1 = new Audio('WARN2OST1.m3a');
-            var WARN2_OST2 = new Audio('WARN2OST2.m3a');
-            var WARN2_OST3 = new Audio('WARN2OST3.m3a');
-            var WARN2_OST4 = new Audio('WARN2OST4.m3a');
-            var WARN2_OST5 = new Audio('WARN2OST5.m3a');
+            var HSTF_OST1 = new Audio('HSTFOST1.m4a');
+            var HSTF_OST2 = new Audio('HSTFOST2.m4a');
+            var HSTF_OST3 = new Audio('HSTFOST3.m4a');
+            var HSTF_OST4 = new Audio('HSTFOST4.m4a');
+            var HSTF_OST5 = new Audio('HSTFOST5.m4a');
+            var IVTF_OST1 = new Audio('IVTFOST1.m4a');
+            var IVTF_OST2 = new Audio('IVTFOST2.m4a');
+            var IVTF_OST3 = new Audio('IVTFOST3.m4a');
+            var IVTF_OST4 = new Audio('IVTFOST4.m4a');
+            var IVTF_OST5 = new Audio('IVTFOST5.m4a');
+            var PLF_OST1 = new Audio('PLFOST1.m4a');
+            var PLF_OST2 = new Audio('PLFOST2.m4a');
+            var PLF_OST3 = new Audio('PLFOST3.m4a');
+            var PLF_OST4 = new Audio('PLFOST4.m4a');
+            var PLF_OST5 = new Audio('PLFOST5.m4a');
+            var WARN1_OST1 = new Audio('WARN1OST1.m4a');
+            var WARN1_OST2 = new Audio('WARN1OST2.m4a');
+            var WARN1_OST3 = new Audio('WARN1OST3.m4a');
+            var WARN1_OST4 = new Audio('WARN1OST4.m4a');
+            var WARN1_OST5 = new Audio('WARN1OST5.m4a');
+            var WARN2_OST1 = new Audio('WARN2OST1.m4a');
+            var WARN2_OST2 = new Audio('WARN2OST2.m4a');
+            var WARN2_OST3 = new Audio('WARN2OST3.m4a');
+            var WARN2_OST4 = new Audio('WARN2OST4.m4a');
+            var WARN2_OST5 = new Audio('WARN2OST5.m4a');
             //alarm.play();
             
             <% for(let i=0;i<main_dashboard.length;i++){ %>
                 <% if(main_dashboard[i].feed) { %>
                     <% for(let j=0;j<main_dashboard[i].feed.length;j++){ %>
                             /**
-                            HSTF OST1 1 #ff0001 HSTFOST1.m3a
-                            HSTF OST2 1 #ff0002 HSTFOST2.m3a
-                            HSTF OST3 1 #ff0003 HSTFOST3.m3a
-                            HSTF OST4 1 #ff0004 HSTFOST4.m3a
-                            HSTF OST5 1 #ff0005 HSTFOST5.m3a
-                            IVTF OST1 1 #ff0006 IVTFOST1.m3a
-                            IVTF OST2 1 #ff0007 IVTFOST2.m3a
-                            IVTF OST3 1 #ff0008 IVTFOST3.m3a
-                            IVTF OST4 1 #ff0009 IVTFOST4.m3a
-                            IVTF OST5 1 #ff0010 IVTFOST5.m3a
-                            PLF OST1 1 #ff0011 PLFOST1.m3a
-                            PLF OST2 1 #ff0012 PLFOST2.m3a
-                            PLF OST3 1 #ff0013 PLFOST3.m3a
-                            PLF OST4 1 #ff0014 PLFOST4.m3a
-                            PLF OST5 1 #ff0015 PLFOST5.m3a
-                            WARN1 OST1 1 #ff001a WARN1OST1.m3a
-                            WARN1 OST2 1 #ff001b WARN1OST2.m3a
-                            WARN1 OST3 1 #ff001c WARN1OST3.m3a
-                            WARN1 OST4 1 #ff001d WARN1OST4.m3a
-                            WARN1 OST5 1 #ff001e WARN1OST5.m3a
-                            WARN2 OST1 1 #ff002a WARN2OST1.m3a
-                            WARN2 OST2 1 #ff002b WARN2OST2.m3a
-                            WARN2 OST3 1 #ff002c WARN2OST3.m3a
-                            WARN2 OST4 1 #ff002d WARN2OST4.m3a
-                            WARN2 OST5 1 #ff002e WARN2OST5.m3a
+                            HSTF OST1 1 #ff0001 HSTFOST1.m4a
+                            HSTF OST2 1 #ff0002 HSTFOST2.m4a
+                            HSTF OST3 1 #ff0003 HSTFOST3.m4a
+                            HSTF OST4 1 #ff0004 HSTFOST4.m4a
+                            HSTF OST5 1 #ff0005 HSTFOST5.m4a
+                            IVTF OST1 1 #ff0006 IVTFOST1.m4a
+                            IVTF OST2 1 #ff0007 IVTFOST2.m4a
+                            IVTF OST3 1 #ff0008 IVTFOST3.m4a
+                            IVTF OST4 1 #ff0009 IVTFOST4.m4a
+                            IVTF OST5 1 #ff0010 IVTFOST5.m4a
+                            PLF OST1 1 #ff0011 PLFOST1.m4a
+                            PLF OST2 1 #ff0012 PLFOST2.m4a
+                            PLF OST3 1 #ff0013 PLFOST3.m4a
+                            PLF OST4 1 #ff0014 PLFOST4.m4a
+                            PLF OST5 1 #ff0015 PLFOST5.m4a
+                            WARN1 OST1 1 #ff001a WARN1OST1.m4a
+                            WARN1 OST2 1 #ff001b WARN1OST2.m4a
+                            WARN1 OST3 1 #ff001c WARN1OST3.m4a
+                            WARN1 OST4 1 #ff001d WARN1OST4.m4a
+                            WARN1 OST5 1 #ff001e WARN1OST5.m4a
+                            WARN2 OST1 1 #ff002a WARN2OST1.m4a
+                            WARN2 OST2 1 #ff002b WARN2OST2.m4a
+                            WARN2 OST3 1 #ff002c WARN2OST3.m4a
+                            WARN2 OST4 1 #ff002d WARN2OST4.m4a
+                            WARN2 OST5 1 #ff002e WARN2OST5.m4a
                             **/
                             
                         <% if((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0001') { %>
                             HSTF_OST1.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0002') { %>
                             HSTF_OST2.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0003') { %>
                             HSTF_OST3.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0004') { %>
                             HSTF_OST4.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0005') { %>
                             HSTF_OST5.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0006') { %>
                             IVTF_OST1.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0007') { %>
                             IVTF_OST2.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0008') { %>
                             IVTF_OST3.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0009') { %>
                             IVTF_OST4.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0010') { %>
                             IVTF_OST5.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0011') { %>
                             PLF_OST1.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0012') { %>
                             PLF_OST2.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0013') { %>
                             PLF_OST3.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0014') { %>
                             PLF_OST4.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0015') { %>
                             PLF_OST5.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff001a') { %>
                             WARN1_OST1.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff001b') { %>
                             WARN1_OST2.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff001c') { %>
                             WARN1_OST3.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff001d') { %>
                             WARN1_OST4.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff0001e') { %>
                             WARN1_OST5.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff002a') { %>
                             WARN2_OST1.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff002b') { %>
                             WARN2_OST2.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff002c') { %>
                             WARN2_OST3.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff002d') { %>
                             WARN2_OST4.play();
-                            return;
                         <% } else if ((main_dashboard[i].feed[j].msg4).substring(0, 7) == '#ff002e') { %>
                             WARN2_OST5.play();
-                            return;
-                    
                         <% } %>
                     <% } %>    
                 <% } %>
