@@ -20,7 +20,7 @@
     "ssh2": "^0.6.1",
     "tail": "^2.0.2",
     "uuid": "^3.3.2",
-    "xlsx": "^0.13.1"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {},
   "scripts": {
